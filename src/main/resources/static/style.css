@@ -1,0 +1,53 @@
+#container1 {
+    display: flex;
+    flex-direction: row;
+    color: black;
+    
+    width: fit-content;
+   
+}
+
+.innerbox{
+    border-color: black;
+    border: 2px; 
+}
+
+#currencies {
+    border: 2px black;
+    border-radius: 5px;
+    background-color: darkcyan;
+}
+
+#baseButtonArea {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#userBaseInput {
+    margin: 10px;
+    height: 30px;
+    width: 100px;
+
+}
+#baseButton {
+    height: 30px;
+    width: 200px;
+}
+
+#targets {
+    height: 25px;
+    width: 10px; 
+}
+
+#values {
+    border: 2px black;
+    border-radius: 5px;
+    background-color: darkcyan; 
+}
+
+#verticalContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 600px;
+}

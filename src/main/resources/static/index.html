@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="script.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body> 
+<h1>Tri-Currency Arbitrage</h1>
+<p></p>
+
+    <div id = "baseButtonArea">
+        <label> Base Currency </label>  
+        <input type="text", id = "userBaseInput">
+        <button type = "button", id = "baseButton", onclick="grabBaseCurrencies()"> 
+            Reset Base Currency </button>
+    </div>
+
+<p></p>
+
+    <div id = "container1">
+        <div id = verticalContainer>
+
+            <br>
+            <br>
+            <button type = "button", id = "TargetsButton", onclick="grabTargetCurrencies()", action="$conn"> 
+                Record & Plot Targets </button>
+            <br>
+
+            <label> Target Currency 1 </label>  
+            <input type="text", id = "target1">
+            <br>
+
+            <label> Target Currency 2 </label>  
+            <input type="text", id = "target2">
+            <br>
+
+            <label> Target Currency 3 </label>  
+            <input type="text", id = "target3">
+            <br>
+
+            <label> Target Currency 4 </label>  
+            <input type="text", id = "target4">
+            <br>
+
+            <label> Target Currency 5 </label>  
+            <input type="text", id = "target5">
+            <br>
+
+            <label> Target Currency 6 </label>  
+            <input type="text", id = "target6">
+            <br>
+
+            <label> Target Currency 7 </label>  
+            <input type="text", id = "target7">
+            <br>
+
+            <label> Target Currency 8 </label>  
+            <input type="text", id = "target8">
+            <br>
+
+            <label> Target Currency 9 </label>  
+            <input type="text", id = "target9">
+            <br>
+
+            <label> Target Currency 10 </label>  
+            <input type="text", id = "target10">
+            <br>
+        </div>
+        
+
+        <div >
+            <ul id="currencies">
+            </ul>   
+        </div>
+
+        <div >
+            <ul id="values"> 
+            </ul>
+        </div>
+        
+        <div >
+           <p id="HtmlJSONtargets">  </p> 
+        </div>
+
+
+    </div>
+</body>
+</html>

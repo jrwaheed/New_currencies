@@ -1,0 +1,54 @@
+ /*@GetMapping("/index1")
+    public ResponseEntity<Map<String,Double>> createCurrency1Get(@RequestBody Map<String,Double> myMap) {
+        log.info("REST request to save currency: {}", myMap.toString());
+
+        CurrencyObject currencyObject = new CurrencyObject();
+        currencyObject.setMyMap(myMap);
+        CurrencyObject savedCurrency = currencyObjectRepository.save(currencyObject);
+        log.info("REST request to save currency: {}", savedCurrency.toString());
+        return new ResponseEntity<>(myMap, HttpStatus.CREATED);
+
+
+    }*/
+
+    //	public void run(String... args){
+    //
+    //		List<CurrencyObject> targetCurrencies = new ArrayList<>();
+    //		CurrencyObject USD = new CurrencyObject("USD", 8.015f, "base");
+    //		CurrencyObject JPY = new CurrencyObject("JPY", 8.54f, "target");
+    //		CurrencyObject GBP = new CurrencyObject("GBP", 8.86f, "target");
+    //
+    //		targetCurrencies.add(USD);
+    //		targetCurrencies.add(JPY);
+    //		targetCurrencies.add(GBP);
+    //
+    //
+    //
+    //
+    //		for (CurrencyObject element: targetCurrencies) {
+    //
+    //			String currencyTickerString = element.getTicker();
+    //			String currencyValueString = Float.toString(element.getValue());
+    //			String currencyRelationString = element.getRelation();
+    //			String sql = "";
+    //			boolean mdebug = true;
+    //
+    //			sql = "DROP TABLE IF EXISTS " + currencyTickerString + ";";
+    //			if (mdebug) System.out.println(sql);
+    //			jdbcTemplate.execute(sql);
+    //
+    //			sql = "CREATE TABLE "+ currencyTickerString +" (" +
+    //					"ID int AUTO_INCREMENT PRIMARY KEY," +
+    //					"Ticker VARCHAR(3)," +
+    //					"Value VARCHAR(20)," +
+    //					"Relation VARCHAR(8));";
+    //			if (mdebug) System.out.println(sql);
+    //			jdbcTemplate.execute(sql);
+    //
+    //			sql = "INSERT INTO " + currencyTickerString + " (Ticker, Value, Relation)" +
+    //					" VALUES ('" + currencyTickerString + "', '" + currencyValueString + "', '" +
+    //					currencyRelationString + "');";
+    //			if (mdebug) System.out.println(sql + "\n");
+    //			jdbcTemplate.execute(sql);
+    //		}
+    //	}
