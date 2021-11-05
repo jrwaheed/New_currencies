@@ -39,7 +39,6 @@ public class MainController {
 
         createCurrencyFromMap(currencyMap);
 
-        System.out.println("\n total in the repository" + repository.count());
         return new ResponseEntity<>(currencyMap, HttpStatus.CREATED);
     }
 
