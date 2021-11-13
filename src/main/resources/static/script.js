@@ -31,6 +31,8 @@ async function grabBaseCurrencies() {
     var jsonResult = mapToJSON(targetMap)
     console.log("wir sind hier")
     sendDataToJava(jsonResult);
+    
+   
 };
 
 
@@ -83,38 +85,28 @@ function makeTargetMap (targetArray, baseCurrenciesMap){
 
 
 function mapToJSON(targetMap) {
-    let jsonObject = {};
+
+    var baseCurrencySelection = document.getElementById("userBaseInput").value;
+    
+    let tempMap = new Map();
+    let jsonObject = {}
+
+    tempMap.set(baseCurrencySelection, 1.00)
+
     targetMap.forEach((value, key) => {
-       jsonObject[key] = value });       
+        tempMap.set(key, value)})
+
+    tempMap.forEach((value, key)=> {
+        jsonObject[key] = value
+    })
+
     let JSONtargets = JSON.stringify(jsonObject);  
         console.log(JSONtargets)
     return JSONtargets;  
 }
 
 function sendDataToJava(jsonResult){
-    //Sending and receiving data in JSON format using POST method
-    /*
-    var xhr = new XMLHttpRequest();
-    var url = 'http://localhost:8080/index1'
-
-    xhr.open("POST", url, true);
-    
-
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onreadystatechange = function () {
-        xhr.response = jsonResult;
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            
-            console.log("Party like a rockstar!");
-           
-        }
-        xhr.send(jsonResult);*/
-
-
-
-    
-   
+  
      
     $.ajax({
         headers: { 
@@ -125,8 +117,29 @@ function sendDataToJava(jsonResult){
         url:'http://localhost:8080/index1',
        
         data: jsonResult,
-        success: console.log("Party like a rockstar!"),
+        success: console.log("Target currencies sent"),
         error : onerror
     });
 
 }
+
+
+/*
+function mapToJSON(targetMap) {
+
+    var baseCurrencySelection = document.getElementById("userBaseInput").value;
+    
+    let jsonObject = {};
+
+
+    jsonObject.set(baseCurrencySelection, 1.00)
+
+    targetMap.forEach((value, key) => {
+       jsonObject[key] = value });
+     
+    let JSONtargets = JSON.stringify(jsonObject);  
+        console.log(JSONtargets)
+    return JSONtargets;  
+}
+*/
+

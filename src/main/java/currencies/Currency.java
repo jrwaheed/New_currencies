@@ -1,11 +1,10 @@
 package currencies;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Map;
+import javax.persistence.*;
+
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 public class Currency {
@@ -14,19 +13,30 @@ public class Currency {
     private Long id;
     private String ticker;
     private double value;
-    private String relation;
+    private String base;
+
+    @Column(name = "time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date time;
 
 
     public Currency (){
     }
 
 
-    public Currency(Long id, String ticker, double value, String relation) {
+    public Currency(Long id, String ticker, double value, String base, Date time) {
         this.id = id;
         this.ticker = ticker;
         this.value = value;
-        this.relation = relation;
+        this.base = base;
+        this.time = time;
 
+
+    }
+
+    @PrePersist
+    public void persistTimeStamps() {
+        time = new Date();
     }
 
     public Long getId() {
@@ -53,13 +63,19 @@ public class Currency {
         this.value = value;
     }
 
-    public String getRelation() {
-        return relation;
+    public String getBase() {
+        return base;
     }
 
-    public void setRelation(String relation) {
-        this.relation = relation;
+    public void setBase(String base) {
+        this.base = base;
     }
 
+    public Date getTime() {
+        return time;
+    }
 
+    public void setTime(Date time) {
+        this.time = time;
+    }
 }
