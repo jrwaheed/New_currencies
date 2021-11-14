@@ -18,7 +18,7 @@ WHILE @counter <= (select count(distinct ticker) from currency) DO
 	set @the_currency = (select ticker from TArray where ID = @counter);
 
 	SET @DynamicSQL = CONCAT('CREATE TABLE ', @the_currency,'
-	AS (select * from currency where ticker = ',@the_currency,' AND base = ',@the_base,');');
+	AS (select * from currency where ticker = ',"@the_currency",' AND base = ',"@the_base",');');
 
 	select @DynamicSQL;
 
@@ -50,4 +50,3 @@ Delimiter ;
 	where ticker = '+ the_currency + ' and base = ' + the_base +');';
 
 	SET @DynamicSQL = CONCAT('CREATE TABLE @the_currency AS (select * from currency where ticker = @the_currency, AND base = @the_base;');
-
