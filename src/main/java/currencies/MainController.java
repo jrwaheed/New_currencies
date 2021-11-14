@@ -58,9 +58,6 @@ public class MainController {
             newCurrency.setValue(newValue);
 
 
-
-
-
             System.out.println("The ticker " + newCurrency.getTicker() + " And the value " + newCurrency.getValue() +
                     " for base " + newCurrency.getBase());
             repository.save(newCurrency);
