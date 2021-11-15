@@ -5,10 +5,6 @@ BEGIN
 
 	set @counter = 1;
 
--- DECLARE counter int default 1;
--- DECLARE the_base varchar(10);
--- DECLARE the_currency varchar(10);
-
 WHILE @counter <= (select count(distinct ticker) from currency) DO
 
 	call targetArray;
@@ -17,12 +13,20 @@ WHILE @counter <= (select count(distinct ticker) from currency) DO
 
 	set @the_currency = (select ticker from TArray where ID = @counter);
 
+	SET @DynamicDrop = CONCAT('DROP TABLE IF EXISTS ' ,@the_currency, ';');
+
 	SET @DynamicSQL = CONCAT('CREATE TABLE ', @the_currency,'
 	AS (select * from currency where ticker = ',"@the_currency",' AND base = ',"@the_base",');');
 
-	select @DynamicSQL;
+	SELECT @DynamicSQL;
+
+	prepare dropstmt from @DynamicDrop;
 
 	prepare stmt from @DynamicSQL;
+
+	EXECUTE dropstmt;
+
+	DEALLOCATE PREPARE dropstmt;
 
 	EXECUTE stmt;
 
@@ -34,19 +38,3 @@ END WHILE;
 END$$
 
 Delimiter ;
-
-
-
-
-
-
-	SET @DynamicSQL = 'CREATE TABLE Monkey
-	 AS (select ticker, base, time, value from currency
-	where ticker = "JPY" and base = "USD");';
-
-
-	SET @DynamicSQL = 'CREATE TABLE ' + the_currency +
-	' AS (select ticker, base, time, value from currency
-	where ticker = '+ the_currency + ' and base = ' + the_base +');';
-
-	SET @DynamicSQL = CONCAT('CREATE TABLE @the_currency AS (select * from currency where ticker = @the_currency, AND base = @the_base;');
