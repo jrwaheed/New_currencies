@@ -1,4 +1,4 @@
-
+/*
 let urlCurrencies = "https://api.coinbase.com/v2/exchange-rates"
 
 let currenciesMap = new Map();
@@ -20,7 +20,7 @@ fetch(urlCurrencies, { method: "GET" })
         console.log(currenciesMap)
     });
 
-
+*/
 
 
 async function grabBaseCurrencies() {
@@ -29,10 +29,7 @@ async function grabBaseCurrencies() {
     makeTargetMap(grabTargetCurrencies(), result);
     var targetMap  =  makeTargetMap(grabTargetCurrencies(), result)
     var jsonResult = mapToJSON(targetMap)
-    console.log("wir sind hier")
-    sendDataToJava(jsonResult);
-    
-   
+    sendDataToJava(jsonResult);   
 };
 
 
@@ -105,6 +102,7 @@ function mapToJSON(targetMap) {
     return JSONtargets;  
 }
 
+
 function sendDataToJava(jsonResult){
   
      
@@ -122,24 +120,3 @@ function sendDataToJava(jsonResult){
     });
 
 }
-
-
-/*
-function mapToJSON(targetMap) {
-
-    var baseCurrencySelection = document.getElementById("userBaseInput").value;
-    
-    let jsonObject = {};
-
-
-    jsonObject.set(baseCurrencySelection, 1.00)
-
-    targetMap.forEach((value, key) => {
-       jsonObject[key] = value });
-     
-    let JSONtargets = JSON.stringify(jsonObject);  
-        console.log(JSONtargets)
-    return JSONtargets;  
-}
-*/
-
