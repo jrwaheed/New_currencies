@@ -18,33 +18,23 @@ WHILE @counter <= (select count(distinct ticker) from currency) DO
 	set @the_base = (select base from currency where id = (SELECT max(id) from Exchange.currency));
 	
 	set @the_currency = (select ticker from TArray where ID = @counter);
-
-
-	SET @DynamicCheck = CONCAT('IF EXISTS ' ,@the_currency,'_',@the_base, ' THEN;');
 	
+	SET @DynamicUpdate = CONCAT(('IF EXISTS ' ,@the_currency,'_',@the_base, ' THEN
+	SELECT * FROM ',@the_currency,'_',@the_base,' 
+	UNION ALL SELECT AS (select * from currency where ticker = ',"@the_currency",' AND base = ',"@the_base",');');
+
 	SET @DynamicCreate = CONCAT('CREATE TABLE ',@the_currency,'_',@the_base,'
 	AS (select * from currency where ticker = ',"@the_currency",' AND base = ',"@the_base",');');
-
-	SET @DynamicUpdate = CONCAT(
-	'SELECT * FROM ',@the_currency,'_',@the_base,
-	' UNION ALL SELECT AS (select * from currency where ticker = ',"@the_currency",' AND base = ',"@the_base",');');
-
 	
-
-	prepare createstmt from @DynamicCreate;
-
-	prepare checkstmt from @DynamicCheck;
 
 	prepare updatestmt from @DynamicUpdate;
 
+	prepare createstmt from @DynamicCreate;
 
-	IF EXIST CONCAT('DROP TABLE IF EXISTS ' ,@the_currency,'_',@the_base, ';') THEN 
-		
-	
 
-	EXECUTE dropstmt;
+	EXECUTE updatestmt;
 
-	DEALLOCATE PREPARE dropstmt; 
+	DEALLOCATE PREPARE updatestmt; 
 
 	EXECUTE stmt;
 
