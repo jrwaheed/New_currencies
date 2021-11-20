@@ -62,5 +62,7 @@ public class MainController {
                     " for base " + newCurrency.getBase());
             repository.save(newCurrency);
         }
+
+
     }
 }

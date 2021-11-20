@@ -23,6 +23,42 @@ fetch(urlCurrencies, { method: "GET" })
 */
 
 
+function getBaseCurrency () {
+    var baseCurrencySelection = document.getElementById("userBaseInput").value;
+    return baseCurrencySelection
+}
+
+
+function makeBasePlusTargetsArray(targetArray, baseCurrency){
+    let allCurrencyArray = [];   
+    allCurrencyArray.push(baseCurrency);
+    targetArray.forEach(element => {allCurrencyArray.push(element)    
+    });
+    return allCurrencyArray
+}
+
+function runThroughBaseAndTargetsFromAPI(allCurrencyArray){
+    allCurrencyArray.forEach(element => {
+        runTheAPIForAcurrency(element)  
+    });
+}
+
+async function runTheAPIForAcurrency (runningCurrency){
+    var urlCurrenciesBase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + runningCurrency;
+    var currencyMap = new Map();
+    return fetch(urlCurrenciesBase, { method: "GET" })
+        .then(response => response.json())
+        .then(function (result) {
+            var obj = result.data.rates;
+            var keys = Object.keys(obj);
+            for (var val in keys) {
+                currencyMap.set(keys[val], obj[keys[val]]);
+            }
+            return currencyMap;
+        });
+};
+
+
 async function grabBaseCurrencies() {
     const result = await updateCurrencies();
     postTargetsInMap(grabTargetCurrencies(), result)
@@ -81,6 +117,7 @@ function makeTargetMap (targetArray, baseCurrenciesMap){
 };
 
 
+
 function mapToJSON(targetMap) {
 
     var baseCurrencySelection = document.getElementById("userBaseInput").value;
@@ -104,8 +141,7 @@ function mapToJSON(targetMap) {
 
 
 function sendDataToJava(jsonResult){
-  
-     
+    
     $.ajax({
         headers: { 
             'Accept': 'application/json',
