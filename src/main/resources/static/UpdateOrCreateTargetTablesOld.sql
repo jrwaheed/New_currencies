@@ -17,16 +17,18 @@ BEGIN
 	
 		
 		SET @DynamicCreateOrUpdate = CONCAT(
-		'
-		IF (EXISTS (SELECT * FROM ',@the_currency,'_',@the_base,')) THEN
+		'IF EXISTS (SELECT * FROM ',@the_currency,'_',@the_base,') 
+		BEGIN
 			SELECT * FROM ',@the_currency,'_',@the_base,' 
 			UNION ALL 
 			SELECT * FROM currency WHERE ticker = ',"@the_currency",' AND base = ',"@the_base",';
-		
+		END
 		ELSE
+		BEGIN
 			CREATE TABLE ',@the_currency,'_',@the_base,'
-			AS (SELECT * FROM currency WHERE ticker = ',"@the_currency",' AND base = ',"@the_base",')
-		END IF;');
+			AS (SELECT * FROM currency WHERE ticker = ',"@the_currency",' AND base = ',"@the_base",');
+		END 
+		END;');
 
 		prepare createOrUpdatestmt from @DynamicCreateOrUpdate;
 	

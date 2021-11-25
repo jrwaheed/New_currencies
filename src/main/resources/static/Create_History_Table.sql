@@ -5,3 +5,7 @@ create table Currency_History (
 	time datetime(6),
 	value double
 );
+
+TRUNCATE table Currency_History; 
+
+call createOrUpdateTargetTables(); 

@@ -1,40 +1,54 @@
-Delimiter $$
 
-CREATE PROCEDURE buildTargetTables()
-BEGIN
+set @counter =1;
 
-	set @counter = 1;
+call targetArray;
+	
+set @the_base = (select base from currency where id = (SELECT max(id) from Exchange.currency));
+		
+set @the_currency = (select ticker from TArray where ID = @counter);
 
-WHILE @counter <= (select count(distinct ticker) from currency) DO
+set @temp_table_string = CONCAT(@the_currency,'_',@the_base);
 
-	call targetArray;
+SET @stringOne = CONCAT('INSERT INTO ',@temp_table_string,'
+SELECT * FROM currency WHERE ticker = ? AND base = ?;'); 
 
-	set @the_base = (select base from currency where id = 24);
+prepare statementOne FROM @stringOne;
 
-	set @the_currency = (select ticker from TArray where ID = @counter);
 
-	SET @DynamicDrop = CONCAT('DROP TABLE IF EXISTS ' ,@the_currency, ';');
 
-	SET @DynamicSQL = CONCAT('CREATE TABLE ', @the_currency,'
-	AS (select * from currency where ticker = ',"@the_currency",' AND base = ',"@the_base",');');
+SET @stringTwo = CONCAT('CREATE TABLE ',@temp_table_string,' AS 
+	SELECT * FROM currency WHERE ticker = ? AND base = ?;');
 
-	SELECT @DynamicSQL;
+prepare statementTwo FROM @stringTwo;
 
-	prepare dropstmt from @DynamicDrop;
 
-	prepare stmt from @DynamicSQL;
 
-	EXECUTE dropstmt;
+set @tablePresent = 
+(SELECT count(*) FROM information_schema.tables
+	WHERE table_schema = 'Exchange'
+	AND table_name = @temp_table_string);
 
-	DEALLOCATE PREPARE dropstmt;
+SELECT @tablePresent
 
-	EXECUTE stmt;
+IF (SELECT @tablePresent = 1, 
+	execute statementOne USING @the_currency, @the_base,
+	execute statementTwo USING @the_currency, @the_base);
+	
 
-	DEALLOCATE PREPARE stmt;
+execute statementOne USING @the_currency, @the_base
 
-	SET @counter = @counter + 1;
+execute statementTwo USING @the_currency, @the_base;
 
-END WHILE;
-END$$
 
-Delimiter ;
+
+
+
+
+truncate table EUR_USD 
+
+'SELECT * FROM ',@temp_table_string,' UNION ALL 
+	SELECT * FROM currency WHERE ticker = ? AND base = ?;'
+
+
+
+
