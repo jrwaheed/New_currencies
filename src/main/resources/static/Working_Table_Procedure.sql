@@ -30,25 +30,10 @@ set @tablePresent =
 
 SELECT @tablePresent
 
-IF (SELECT @tablePresent = 1, 
+IF  @tablePresent = 1, 
 	execute statementOne USING @the_currency, @the_base,
 	execute statementTwo USING @the_currency, @the_base);
 	
-
-execute statementOne USING @the_currency, @the_base
-
-execute statementTwo USING @the_currency, @the_base;
-
-
-
-
-
-
-truncate table EUR_USD 
-
-'SELECT * FROM ',@temp_table_string,' UNION ALL 
-	SELECT * FROM currency WHERE ticker = ? AND base = ?;'
-
 
 
 
