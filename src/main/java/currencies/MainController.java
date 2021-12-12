@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 @Controller
@@ -18,10 +19,19 @@ public class MainController {
 
     private final Logger log = LoggerFactory.getLogger(MainController.class);
 
-    private final  Repository repository;
+    public final Repository repository;
+
+
+
+
+    public SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
+
+
+    public Arbitrage arbitrage = new Arbitrage();
 
     public MainController(Repository repository) {
         this.repository = repository;
+
     }
 
     @Autowired
@@ -35,16 +45,17 @@ public class MainController {
      * @return
      */
     @PostMapping("/index1")
-    public ResponseEntity<Map<String,Double>> retrieveCurrency (@RequestBody Map<String,Double> currencyMap) {
+    public ResponseEntity<Map<String,Double>> retrieveCurrency (@RequestBody Map<String,Double> currencyMap) throws SQLException {
         log.info("REST request to retrieve target currency: {}", currencyMap.toString());
 
         createCurrencyFromMap(currencyMap);
+
 
         return new ResponseEntity<>(currencyMap, HttpStatus.CREATED);
     }
 
 
-    private void createCurrencyFromMap (Map<String,Double> currencyMap) {
+    private void createCurrencyFromMap (Map<String,Double> currencyMap) throws SQLException {
         for (int i = 1; i < currencyMap.size(); i++) {
             Currency newCurrency = new Currency();
 
@@ -58,11 +69,17 @@ public class MainController {
             newCurrency.setValue(newValue);
 
 
-            System.out.println("The ticker " + newCurrency.getTicker() + " And the value " + newCurrency.getValue() +
+            System.out.println("The ticker " + newCurrency.getTicker() + " has the value " + newCurrency.getValue() +
                     " for base " + newCurrency.getBase());
             repository.save(newCurrency);
+
         }
+        arbitrage.createGrandMap(currencyMap);
+        sqlQueryHelper.updateTables();
+
 
 
     }
+
+
 }
