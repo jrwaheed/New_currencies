@@ -74,8 +74,8 @@ public class MainController {
             repository.save(newCurrency);
 
         }
-        arbitrage.createGrandMap(currencyMap);
-        sqlQueryHelper.updateTables();
+
+        //sqlQueryHelper.updateTables();
 
 
 

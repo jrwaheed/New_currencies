@@ -1,17 +1,33 @@
 
-function getBaseCurrency () {
+function grabBaseCurrency () {
     var baseCurrencySelection = document.getElementById("userBaseInput").value;
     return baseCurrencySelection
 }
 
 
+function grabTargetCurrencies() {
+    const targetArray = [];
+    for (let i = 1; i <= 10; i++) {
+        let targetNumber = "";
+        targetNumber = "target" + i;
+        if (document.getElementById(targetNumber).value != "") {
+            targetArray.push(document.getElementById(targetNumber).value)
+        } else { }
+    }
+    return targetArray;
+};
+
+
 function makeBasePlusTargetsArray(targetArray, baseCurrency){
     let allCurrencyArray = [];   
     allCurrencyArray.push(baseCurrency);
-    targetArray.forEach(element => {allCurrencyArray.push(element)    
-    });
+    for(let i = 0; i < targetArray.length; i++){
+        allCurrencyArray.push(targetArray[i])
+    }
     return allCurrencyArray
-}
+};
+
+
 
 function runThroughBaseAndTargetsFromAPI(allCurrencyArray){
     allCurrencyArray.forEach(element => {
@@ -38,9 +54,9 @@ async function runTheAPIForAcurrency (runningCurrency){
 
 
 
-async function updateCurrencies() {
-    var baseCurrencySelection = document.getElementById("userBaseInput").value;
-    var urlCurrenciesBase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + baseCurrencySelection;
+async function fullAPIFetch(element) {
+    //var baseCurrencySelection = document.getElementById("userBaseInput").value;
+    var urlCurrenciesBase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + element;
     var baseCurrenciesMap = new Map();
     return fetch(urlCurrenciesBase, { method: "GET" })
         .then(response => response.json())
@@ -50,22 +66,14 @@ async function updateCurrencies() {
             for (var val in keys) {
                 baseCurrenciesMap.set(keys[val], obj[keys[val]]);
             }
+            console.log(baseCurrenciesMap.keys)
+            console.log(baseCurrenciesMap.values)
             return baseCurrenciesMap;
         });
 };
 
 
-function grabTargetCurrencies() {
-    const targetArray = [];
-    for (let i = 1; i <= 10; i++) {
-        let targetNumber = "";
-        targetNumber = "target" + i;
-        if (document.getElementById(targetNumber).value != "") {
-            targetArray.push(document.getElementById(targetNumber).value)
-        } else { }
-    }
-    return targetArray;
-};
+
 
 
 function postTargetsInMap(targetArray, baseCurrenciesMap) {
@@ -77,24 +85,26 @@ function postTargetsInMap(targetArray, baseCurrenciesMap) {
 };
 
 
-function makeTargetMap (targetArray, baseCurrenciesMap){
+function makeTargetMap (targetArray, workingAPIMap){
     const targetMap = new Map();
-    targetArray.forEach(element => {
-        targetMap.set(element, baseCurrenciesMap.get(element))
+
+
+    targetArray.forEach(item => {
+        targetMap.set(item, workingAPIMap.get(item))
     })
     return targetMap;
 };
 
 
 
-function mapToJSON(targetMap) {
+function mapToJSON(targetMap, element) {
 
-    var baseCurrencySelection = document.getElementById("userBaseInput").value;
+    //var baseCurrencySelection = document.getElementById("userBaseInput").value;
     
     let tempMap = new Map();
     let jsonObject = {}
 
-    tempMap.set(baseCurrencySelection, 1.00)
+    tempMap.set(element, 1.00)
 
     targetMap.forEach((value, key) => {
         tempMap.set(key, value)})
@@ -126,11 +136,26 @@ function sendDataToJava(jsonResult){
 }
 
 
-async function grabBaseCurrencies() {
-    const result = await updateCurrencies();
-    postTargetsInMap(grabTargetCurrencies(), result)
-    makeTargetMap(grabTargetCurrencies(), result);
-    var targetMap  =  makeTargetMap(grabTargetCurrencies(), result)
-    var jsonResult = mapToJSON(targetMap)
-    sendDataToJava(jsonResult);   
-};
+async function primaryFunction(element, loopCurrencyArray) {
+    
+      
+        const workingAPIMap = await fullAPIFetch(element);
+        
+        var targetMap  =  makeTargetMap(grabTargetCurrencies(), workingAPIMap)
+        var jsonResult = mapToJSON(targetMap, element)
+        sendDataToJava(jsonResult);   
+
+   // postTargetsInMap(grabTargetCurrencies(), grandMap)
+
+};    
+
+function loopEachMap(){
+
+    let grandMap = new Map();
+    let loopCurrencyArray = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency())
+   
+    loopCurrencyArray.forEach(element => {primaryFunction(element, loopCurrencyArray)
+    });
+
+   
+}
