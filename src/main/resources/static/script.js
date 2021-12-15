@@ -17,7 +17,6 @@ function grabTargetCurrencies() {
     return targetArray;
 };
 
-
 function makeBasePlusTargetsArray(targetArray, baseCurrency){
     let allCurrencyArray = [];   
     allCurrencyArray.push(baseCurrency);
@@ -26,7 +25,6 @@ function makeBasePlusTargetsArray(targetArray, baseCurrency){
     }
     return allCurrencyArray
 };
-
 
 
 function runThroughBaseAndTargetsFromAPI(allCurrencyArray){
@@ -50,12 +48,7 @@ async function runTheAPIForAcurrency (runningCurrency){
         });
 };
 
-
-
-
-
 async function fullAPIFetch(element) {
-    //var baseCurrencySelection = document.getElementById("userBaseInput").value;
     var urlCurrenciesBase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + element;
     var baseCurrenciesMap = new Map();
     return fetch(urlCurrenciesBase, { method: "GET" })
@@ -72,10 +65,6 @@ async function fullAPIFetch(element) {
         });
 };
 
-
-
-
-
 function postTargetsInMap(targetArray, baseCurrenciesMap) {
     let htmlTargets = "";  
     targetArray.forEach(element => {
@@ -84,32 +73,29 @@ function postTargetsInMap(targetArray, baseCurrenciesMap) {
     });
 };
 
+function makeRollingMap (element, allCurrencyArray, workingAPIMap){
+    const rollingMap = new Map();
 
-function makeTargetMap (targetArray, workingAPIMap){
-    const targetMap = new Map();
+    var myIndex = allCurrencyArray.indexOf(element);
 
+    if(myIndex !== -1){
+        allCurrencyArray.splice(myIndex, 1)
+    }
 
-    targetArray.forEach(item => {
-        targetMap.set(item, workingAPIMap.get(item))
+    console.log(allCurrencyArray)
+    
+    rollingMap.set(element, 1.00)
+
+    allCurrencyArray.forEach(item => {
+        rollingMap.set(item, workingAPIMap.get(item))
     })
-    return targetMap;
+    return rollingMap;
 };
 
-
-
-function mapToJSON(targetMap, element) {
-
-    //var baseCurrencySelection = document.getElementById("userBaseInput").value;
-    
-    let tempMap = new Map();
+function mapToJSON(rollingMap) {
     let jsonObject = {}
 
-    tempMap.set(element, 1.00)
-
-    targetMap.forEach((value, key) => {
-        tempMap.set(key, value)})
-
-    tempMap.forEach((value, key)=> {
+    rollingMap.forEach((value, key)=> {
         jsonObject[key] = value
     })
 
@@ -118,9 +104,7 @@ function mapToJSON(targetMap, element) {
     return JSONtargets;  
 }
 
-
 function sendDataToJava(jsonResult){
-    
     $.ajax({
         headers: { 
             'Accept': 'application/json',
@@ -135,27 +119,19 @@ function sendDataToJava(jsonResult){
     });
 }
 
-
-async function primaryFunction(element, loopCurrencyArray) {
-    
-      
+async function primaryFunction(element) { 
         const workingAPIMap = await fullAPIFetch(element);
         
-        var targetMap  =  makeTargetMap(grabTargetCurrencies(), workingAPIMap)
-        var jsonResult = mapToJSON(targetMap, element)
+        var rollingMap  =  makeRollingMap(element, getAllCurrencies(), workingAPIMap)
+        var jsonResult = mapToJSON(rollingMap)
         sendDataToJava(jsonResult);   
-
-   // postTargetsInMap(grabTargetCurrencies(), grandMap)
-
 };    
 
 function loopEachMap(){
+    getAllCurrencies().forEach(element => {primaryFunction(element)});
+}
 
-    let grandMap = new Map();
-    let loopCurrencyArray = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency())
-   
-    loopCurrencyArray.forEach(element => {primaryFunction(element, loopCurrencyArray)
-    });
-
-   
+function getAllCurrencies() {
+    let allCurrencyArray = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency())
+    return allCurrencyArray;
 }
