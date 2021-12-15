@@ -38,7 +38,6 @@ public class MainController {
     private MainController mainController;
 
 
-
     /**
      * Retrieves the target map created in javascript.
      * @param
@@ -57,29 +56,23 @@ public class MainController {
 
     private void createCurrencyFromMap (Map<String,Double> currencyMap) throws SQLException {
         for (int i = 1; i < currencyMap.size(); i++) {
+
             Currency newCurrency = new Currency();
 
             String newBase = (String) currencyMap.keySet().toArray()[0];
             String newTicker = (String) currencyMap.keySet().toArray()[i];
             Double newValue = (Double) currencyMap.values().toArray()[i];
 
-
             newCurrency.setBase(newBase);
             newCurrency.setTicker(newTicker);
             newCurrency.setValue(newValue);
 
-
             System.out.println("The ticker " + newCurrency.getTicker() + " has the value " + newCurrency.getValue() +
                     " for base " + newCurrency.getBase());
             repository.save(newCurrency);
-
         }
-
-        //sqlQueryHelper.updateTables();
-
-
-
     }
+
 
 
 }
