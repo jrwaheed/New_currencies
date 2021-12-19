@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Map;
 
+
 @Controller
 @CrossOrigin
 public class MainController {
@@ -21,22 +22,16 @@ public class MainController {
 
     public final Repository repository;
 
-
-
-
     public SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
-
 
     public Arbitrage arbitrage = new Arbitrage();
 
     public MainController(Repository repository) {
         this.repository = repository;
-
     }
 
     @Autowired
     private MainController mainController;
-
 
     /**
      * Retrieves the target map created in javascript.
@@ -48,7 +43,6 @@ public class MainController {
         log.info("REST request to retrieve target currency: {}", currencyMap.toString());
 
         createCurrencyFromMap(currencyMap);
-
 
         return new ResponseEntity<>(currencyMap, HttpStatus.CREATED);
     }
@@ -71,8 +65,8 @@ public class MainController {
                     " for base " + newCurrency.getBase());
             repository.save(newCurrency);
         }
-    }
 
+    }
 
 
 }

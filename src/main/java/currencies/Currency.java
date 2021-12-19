@@ -23,15 +23,12 @@ public class Currency {
     public Currency (){
     }
 
-
     public Currency(Long id, String ticker, double value, String base, Date time) {
         this.id = id;
         this.ticker = ticker;
         this.value = value;
         this.base = base;
         this.time = time;
-
-
     }
 
     @PrePersist

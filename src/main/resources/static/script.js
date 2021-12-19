@@ -26,28 +26,6 @@ function makeBasePlusTargetsArray(targetArray, baseCurrency){
     return allCurrencyArray
 };
 
-
-function runThroughBaseAndTargetsFromAPI(allCurrencyArray){
-    allCurrencyArray.forEach(element => {
-        runTheAPIForAcurrency(element)  
-    });
-}
-
-async function runTheAPIForAcurrency (runningCurrency){
-    var urlCurrenciesBase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + runningCurrency;
-    var currencyMap = new Map();
-    return fetch(urlCurrenciesBase, { method: "GET" })
-        .then(response => response.json())
-        .then(function (result) {
-            var obj = result.data.rates;
-            var keys = Object.keys(obj);
-            for (var val in keys) {
-                currencyMap.set(keys[val], obj[keys[val]]);
-            }
-            return currencyMap;
-        });
-};
-
 async function fullAPIFetch(element) {
     var urlCurrenciesBase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + element;
     var baseCurrenciesMap = new Map();
@@ -119,8 +97,8 @@ function sendDataToJava(jsonResult){
     });
 }
 
-async function primaryFunction(element) { 
-        const workingAPIMap = await fullAPIFetch(element);
+async function primaryFunction(element) {  // previously had async
+        const workingAPIMap = await fullAPIFetch(element); // previously have awiat
         
         var rollingMap  =  makeRollingMap(element, getAllCurrencies(), workingAPIMap)
         var jsonResult = mapToJSON(rollingMap)
@@ -134,4 +112,10 @@ function loopEachMap(){
 function getAllCurrencies() {
     let allCurrencyArray = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency())
     return allCurrencyArray;
+}
+
+function runJavaMethod(){
+    return {
+        
+    }
 }
