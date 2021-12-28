@@ -1,9 +1,17 @@
 package currencies;
 
-import java.sql.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.*;
+import java.time.Clock;
+
+@RestController
+@CrossOrigin
 public class SQLQueryHelper {
 
+
+@RequestMapping(value = "/index2", method = RequestMethod.GET)
     public void updateTables() throws SQLException {
 
         String sql = "CALL buildOut();";
@@ -18,7 +26,7 @@ public class SQLQueryHelper {
         {
             stmt.execute();
             stmt.close();
-            System.out.println("Successfully executed mysql call buildOut.");
+            System.out.println("Successfully executed mysql call buildOut:" + Clock.systemUTC());
         } catch
             (SQLException ex)
         {

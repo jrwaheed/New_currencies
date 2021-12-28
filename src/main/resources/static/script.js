@@ -97,12 +97,13 @@ function sendDataToJava(jsonResult){
     });
 }
 
-async function primaryFunction(element) {  // previously had async
-        const workingAPIMap = await fullAPIFetch(element); // previously have awiat
+async function primaryFunction(element) {  
+        const workingAPIMap = await fullAPIFetch(element); 
         
         var rollingMap  =  makeRollingMap(element, getAllCurrencies(), workingAPIMap)
         var jsonResult = mapToJSON(rollingMap)
-        sendDataToJava(jsonResult);   
+        sendDataToJava(jsonResult);
+        
 };    
 
 function loopEachMap(){
@@ -114,8 +115,40 @@ function getAllCurrencies() {
     return allCurrencyArray;
 }
 
-function runJavaMethod(){
-    return {
-        
+
+
+
+
+/*
+function callJavaMethod(){
+    $.get ('http://localhost:8080/src/main/java/SQLQueryHelper.updateTables()');
     }
+$( callJavaMethod)
+*/
+
+
+function callJavaMethod(){
+    var val ="dummy string"
+
+    $.ajax({
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+    
+        type: 'GET',
+        url:'http://localhost:8080/index2',
+        
+        async: true,
+        cache: false,
+       
+        success: console.log("SQL buildOut completed"),
+        error : onerror
+    })
+}
+
+function runTheTwoFunctions(){
+    loopEachMap();
+    setTimeout(() => {console.log("short timeout;}, 2000")})
+    callJavaMethod();
 }
