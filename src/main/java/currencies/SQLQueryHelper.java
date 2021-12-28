@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
-import java.time.Clock;
+import java.util.Date;
 
 @RestController
 @CrossOrigin
@@ -26,7 +26,7 @@ public class SQLQueryHelper {
         {
             stmt.execute();
             stmt.close();
-            System.out.println("Successfully executed mysql call buildOut:" + Clock.systemUTC());
+            System.out.println("Successfully executed mysql call buildOut:" + new Date());
         } catch
             (SQLException ex)
         {

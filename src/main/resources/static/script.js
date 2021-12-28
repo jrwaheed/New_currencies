@@ -106,26 +106,19 @@ async function primaryFunction(element) {
         
 };    
 
-function loopEachMap(){
-    getAllCurrencies().forEach(element => {primaryFunction(element)});
+async function loopEachMap(){
+    
+    for(const element of getAllCurrencies()){
+        await primaryFunction(element);
+    };
+    await setTimeout(() => {console.log("Pause before creating SQL tables")}, 1000);
+    callJavaMethod();    
 }
 
 function getAllCurrencies() {
     let allCurrencyArray = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency())
     return allCurrencyArray;
 }
-
-
-
-
-
-/*
-function callJavaMethod(){
-    $.get ('http://localhost:8080/src/main/java/SQLQueryHelper.updateTables()');
-    }
-$( callJavaMethod)
-*/
-
 
 function callJavaMethod(){
     var val ="dummy string"
@@ -147,8 +140,7 @@ function callJavaMethod(){
     })
 }
 
-function runTheTwoFunctions(){
+async function pauser(){
+   
     loopEachMap();
-    setTimeout(() => {console.log("short timeout;}, 2000")})
-    callJavaMethod();
 }
