@@ -107,12 +107,14 @@ async function primaryFunction(element) {
 };    
 
 async function loopEachMap(){
+    const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
     
     for(const element of getAllCurrencies()){
         await primaryFunction(element);
-    };
-    await setTimeout(() => {console.log("Pause before creating SQL tables")}, 1000);
-    callJavaMethod();    
+        await delay(500);
+    }   
+    
+    callJavaMethod();
 }
 
 function getAllCurrencies() {
@@ -123,12 +125,7 @@ function getAllCurrencies() {
 function callJavaMethod(){
     var val ="dummy string"
 
-    $.ajax({
-        headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-        },
-    
+    $.ajax({  
         type: 'GET',
         url:'http://localhost:8080/index2',
         
@@ -140,7 +137,4 @@ function callJavaMethod(){
     })
 }
 
-async function pauser(){
-   
-    loopEachMap();
-}
+
