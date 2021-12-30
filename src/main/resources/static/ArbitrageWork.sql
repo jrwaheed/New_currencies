@@ -34,13 +34,11 @@ IF (SELECT COUNT(*) FROM firstList) = 0 THEN
 	LEAVE loop_one;
 	END IF;
 
-	DELETE FROM secondList WHERE base = @the_base;
-
 	CREATE TABLE secondList AS
 	SELECT * FROM firstList;
 
 	set @the_base = (select base from firstList where ID = @mainCounterOne);
-
+	
 	set @mainCounterOne = @mainCounterOne + 1;
 
 	DELETE FROM firstList WHERE base = @the_base;
@@ -48,9 +46,7 @@ IF (SELECT COUNT(*) FROM firstList) = 0 THEN
 	
 	
 
-
-
-loop_two: LOOP
+	loop_two: LOOP
 	IF (SELECT COUNT(*) FROM secondList) = 0 THEN
 	LEAVE loop_two;
 	END IF;
@@ -58,8 +54,6 @@ loop_two: LOOP
 		CREATE TABLE thirdList AS
 		SELECT * FROM firstList;
 	
-
-
 		set @the_ticker = (select base from secondList where ID = @mainCounterTwo);
 	
 		set @comboOne = CONCAT(@the_ticker,'_',@the_base);
@@ -69,7 +63,8 @@ loop_two: LOOP
 			
 		set @mainCounterTwo = @mainCounterTwo + 1;
 	
-		
+		DELETE FROM secondList WHERE base = @the_ticker;
+	
 		DELETE FROM thirdList WHERE base = @the_base;
 		DELETE FROM thirdList WHERE base = @the_ticker;
 	
@@ -80,11 +75,7 @@ loop_two: LOOP
 		LEAVE loop_three;
 		END IF;
 	
-			
-			
 			set @the_closer = (select base from thirdList where ID = @mainCounterThree);
-		
-			SELECT @the_closer;
 		
 			set@comboTwo = CONCAT(@the_closer,'_',@the_ticker);
 			set@comboThree = CONCAT(@the_base,'_',@the_closer);
@@ -103,7 +94,11 @@ loop_two: LOOP
 			DELETE FROM thirdList WHERE base = @the_closer;
 		
 		END LOOP;
+		DROP TABLE thirdList;
+	
 	END LOOP;
+	DROP TABLE  secondList;
+
 END LOOP;
 
 
