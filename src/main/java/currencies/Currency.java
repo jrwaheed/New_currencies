@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.math.BigDecimal;
 
 @Entity
 public class Currency {
@@ -12,7 +13,7 @@ public class Currency {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     private String ticker;
-    private double value;
+    private BigDecimal value;
     private String base;
 
     @Column(name = "time")
@@ -23,7 +24,7 @@ public class Currency {
     public Currency (){
     }
 
-    public Currency(Long id, String ticker, double value, String base, Date time) {
+    public Currency(Long id, String ticker, BigDecimal value, String base, Date time) {
         this.id = id;
         this.ticker = ticker;
         this.value = value;
@@ -52,11 +53,11 @@ public class Currency {
         this.ticker = ticker;
     }
 
-    public double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 

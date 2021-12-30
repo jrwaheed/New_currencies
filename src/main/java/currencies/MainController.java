@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.Map;
+import java.math.BigDecimal;
 
 
 @Controller
@@ -39,7 +40,7 @@ public class MainController {
      * @return
      */
     @PostMapping("/index1")
-    public ResponseEntity<Map<String,Double>> retrieveCurrency (@RequestBody Map<String,Double> currencyMap) throws SQLException {
+    public ResponseEntity<Map<String,BigDecimal>> retrieveCurrency (@RequestBody Map<String,BigDecimal> currencyMap) throws SQLException {
         log.info("REST request to retrieve target currency: {}", currencyMap.toString());
 
         createCurrencyFromMap(currencyMap);
@@ -48,14 +49,14 @@ public class MainController {
     }
 
 
-    private void createCurrencyFromMap (Map<String,Double> currencyMap) throws SQLException {
+    private void createCurrencyFromMap (Map<String,BigDecimal> currencyMap) throws SQLException {
         for (int i = 1; i < currencyMap.size(); i++) {
 
             Currency newCurrency = new Currency();
 
             String newBase = (String) currencyMap.keySet().toArray()[0];
             String newTicker = (String) currencyMap.keySet().toArray()[i];
-            Double newValue = (Double) currencyMap.values().toArray()[i];
+            BigDecimal newValue = (BigDecimal) currencyMap.values().toArray()[i];
 
             newCurrency.setBase(newBase);
             newCurrency.setTicker(newTicker);

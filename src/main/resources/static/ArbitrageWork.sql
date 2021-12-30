@@ -9,15 +9,17 @@ CREATE TABLE Triangle (
 	LegThree varchar(10),
 	LegOneValue double,
 	LegTwoValue double,
-	LegThreeValue double
+	LegThreeValue double,
+	LegTotal decimal(6,5)
 	);
 		
 	
+
 set @mainCounterOne = 1;
 
-set @mainCounterTwo = 2;
+set @mainCounterTwo = 1;
 
-set @mainCounterThree = 3;
+set @mainCounterThree = 1;
 
 CREATE TABLE firstList AS
 SELECT DISTINCT base FROM currency;
@@ -25,60 +27,68 @@ SELECT DISTINCT base FROM currency;
 ALTER TABLE	firstList 
 ADD COLUMN ID INT AUTO_INCREMENT PRIMARY KEY FIRST;
 
-set @firstListCounter = (SELECT COUNT(*) FROM firstList) ;
+CREATE TABLE secondList AS
+SELECT * FROM firstList;
+
+CREATE TABLE thirdList AS
+SELECT * FROM firstList;
 
 
 
 loop_one: LOOP
-IF (SELECT COUNT(*) FROM firstList) = 0 THEN
-	LEAVE loop_one;
+IF @mainCounterOne > (SELECT COUNT(*) FROM firstList) THEN
+LEAVE loop_one;
 	END IF;
-
-	CREATE TABLE secondList AS
-	SELECT * FROM firstList;
-
 	set @the_base = (select base from firstList where ID = @mainCounterOne);
 	
 	set @mainCounterOne = @mainCounterOne + 1;
 
-	DELETE FROM firstList WHERE base = @the_base;
-	DELETE FROM secondList WHERE base = @the_base;
-	
-	
+
+		
 
 	loop_two: LOOP
-	IF (SELECT COUNT(*) FROM secondList) = 0 THEN
+	IF @mainCounterTwo > (SELECT COUNT(*) FROM secondList) THEN
 	LEAVE loop_two;
 	END IF;
 
-		CREATE TABLE thirdList AS
-		SELECT * FROM firstList;
-	
-		set @the_ticker = (select base from secondList where ID = @mainCounterTwo);
-	
-		set @comboOne = CONCAT(@the_ticker,'_',@the_base);
-
-		set @leg_one_value = (select value from currency 
-		where base = @the_base AND ticker = @the_ticker);
+		IF (select base from secondList where ID = @mainCounterTwo) != @the_base THEN
+			set @the_ticker = (select base from secondList where ID = @mainCounterTwo);
+			set @mainCounterTwo = @mainCounterTwo + 1;
+		ELSE
+			set @mainCounterTwo = @mainCounterTwo + 1;
+			ITERATE loop_two;
 			
-		set @mainCounterTwo = @mainCounterTwo + 1;
+		END IF;
 	
-		DELETE FROM secondList WHERE base = @the_ticker;
+		
+		
 	
-		DELETE FROM thirdList WHERE base = @the_base;
-		DELETE FROM thirdList WHERE base = @the_ticker;
-	
-	
-	
+		
 		loop_three: LOOP
-		IF (SELECT COUNT(*) FROM thirdList) = 0 THEN
+		IF @mainCounterThree > (SELECT COUNT(*) FROM thirdList) THEN
 		LEAVE loop_three;
 		END IF;
 	
-			set @the_closer = (select base from thirdList where ID = @mainCounterThree);
+		IF (select base from thirdList where ID = @mainCounterThree) = @the_base THEN
+			set @mainCounterThree = @mainCounterThree + 1;
+			ITERATE loop_three;
 		
-			set@comboTwo = CONCAT(@the_closer,'_',@the_ticker);
-			set@comboThree = CONCAT(@the_base,'_',@the_closer);
+		ELSEIF (select base from thirdList where ID = @mainCounterThree) = @the_ticker THEN
+			set @mainCounterThree = @mainCounterThree + 1;
+			ITERATE loop_three;
+		ELSE
+			set @the_closer = (select base from thirdList where ID = @mainCounterThree);
+			set @mainCounterThree = @mainCounterThree + 1;
+		
+		END IF;
+			
+		
+			set @comboOne = CONCAT(@the_ticker,'_',@the_base);
+			set @comboTwo = CONCAT(@the_closer,'_',@the_ticker);
+			set @comboThree = CONCAT(@the_base,'_',@the_closer);
+		
+			set @leg_one_value = (select value from currency 
+			where ticker = @the_ticker   AND base = @the_base);
 		
 			set @leg_two_value = (select value from currency 
 			where ticker = @the_closer AND base = @the_ticker);
@@ -86,23 +96,36 @@ IF (SELECT COUNT(*) FROM firstList) = 0 THEN
 			set @leg_three_value = (select value from currency 
 			where ticker = @the_base AND base = @the_closer);
 		
-			INSERT INTO Triangle (LegOne, LegTwo, LegThree, LegOneValue, LegTwoValue, LegThreeValue) values 
-			(@comboOne, @comboTwo, @comboThree, @leg_one_value, @leg_two_value, @leg_three_value); 
+			set @legTotal = (@leg_one_value * @leg_two_value * @leg_three_value );
 		
-			set @mainCounterThree = @mainCounterThree + 1;
+			INSERT INTO Triangle (LegOne, LegTwo, LegThree, LegOneValue, LegTwoValue, LegThreeValue, LegTotal) values 
+			(@comboOne, @comboTwo, @comboThree, @leg_one_value, @leg_two_value, @leg_three_value, @legTotal); 
+			
+			
 		
-			DELETE FROM thirdList WHERE base = @the_closer;
 		
 		END LOOP;
-		DROP TABLE thirdList;
+		set @mainCounterThree = 1; 
 	
 	END LOOP;
-	DROP TABLE  secondList;
+	set @mainCounterTwo = 1;
 
 END LOOP;
 
+-- ALTER TABLE	Triangle 
+-- MODIFY LegOneValue REAL, 
+-- MODIFY LegTwoValue REAL, 
+-- MODIFY LegThreeValue REAL;
 
-			
+-- ALTER TABLE	Triangle 
+-- ADD COLUMN ArbitrageOpportuity DOUBLE GENERATED ALWAYS AS (LegOneValue * LegTwoValue * LegThreeValue) STORED;
+
+-- ALTER TABLE	Triangle 
+-- MODIFY COLUMN ArbitrageOpportunity DECIMAL(2,1);
+
+
+	
+DROP TABLE firstList, secondList, thirdList; 			
 END //
 
 DELIMITER ;
