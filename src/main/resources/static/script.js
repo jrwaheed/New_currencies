@@ -97,16 +97,24 @@ function sendDataToJava(jsonResult){
     });
 }
 
-async function primaryFunction(element) {  // previously had async
-        const workingAPIMap = await fullAPIFetch(element); // previously have awiat
+async function primaryFunction(element) {  
+        const workingAPIMap = await fullAPIFetch(element); 
         
         var rollingMap  =  makeRollingMap(element, getAllCurrencies(), workingAPIMap)
         var jsonResult = mapToJSON(rollingMap)
-        sendDataToJava(jsonResult);   
+        sendDataToJava(jsonResult);
+        
 };    
 
-function loopEachMap(){
-    getAllCurrencies().forEach(element => {primaryFunction(element)});
+async function loopEachMap(){
+    const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+    
+    for(const element of getAllCurrencies()){
+        await primaryFunction(element);
+        await delay(500);
+    }   
+    
+    callJavaMethod();
 }
 
 function getAllCurrencies() {
@@ -114,8 +122,19 @@ function getAllCurrencies() {
     return allCurrencyArray;
 }
 
-function runJavaMethod(){
-    return {
+function callJavaMethod(){
+    var val ="dummy string"
+
+    $.ajax({  
+        type: 'GET',
+        url:'http://localhost:8080/index2',
         
-    }
+        async: true,
+        cache: false,
+       
+        success: console.log("SQL buildOut completed"),
+        error : onerror
+    })
 }
+
+

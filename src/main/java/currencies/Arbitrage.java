@@ -2,8 +2,8 @@ package currencies;
 
 
 import org.jboss.jandex.Main;
-
 import java.util.Map;
+
 
 public class Arbitrage {
 
