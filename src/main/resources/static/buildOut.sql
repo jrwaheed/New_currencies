@@ -5,14 +5,7 @@ BEGIN
 	
 set @counter =1;
 
-	-- call targetArray;
-
 set @entryCounter = (SELECT COUNT(*) FROM Exchange.currency);
-	
-	-- set @the_base = (select base from currency where id = (SELECT max(id) from Exchange.currency));
-	
-select @the_base;
-		
 	
 loop_label: LOOP
 IF @entryCounter < @counter THEN
@@ -20,18 +13,11 @@ IF @entryCounter < @counter THEN
 	END IF;
 	
 		
-
 	set @the_ticker = (select ticker from currency where id = @counter);
-	
-	select @the_ticker;
 
 	set @the_base = (select base from currency where id = @counter);
-
-	select @the_base;
 	
 	set @temp_table_string = CONCAT(@the_ticker,'_',@the_base);
-
-	select @temp_table_string;
 
 	set @tablePresent = 
 	(SELECT count(*) FROM information_schema.tables
