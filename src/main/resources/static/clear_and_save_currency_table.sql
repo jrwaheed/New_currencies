@@ -1,13 +1,16 @@
-Delimiter $$
+DELIMITER //
 
-CREATE PROCEDURE clear_and_save_currency_table()
+CREATE PROCEDURE clear_and_save_currency_table() ()
 BEGIN
-
-INSERT INTO Currency_History 
-SELECT * FROM currency;
+	
+-- INSERT INTO Currency_History 
+-- SELECT * FROM currency;
 
 TRUNCATE TABLE currency ;
+	
+END //
 
-END$$
+DELIMITER ;
 
-Delimiter ;
+
+
