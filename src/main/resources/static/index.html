@@ -1,9 +1,4 @@
-<%@page import="currencies.SQLQueryHelper"%>
 
-<% 
-    SQLQueryHelper sSQLQueryHelper = new SQLQueryHelper();
-    sSQLQueryHelper.updateTables();
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+    <script src= "onloadScript.js"></script>
     <script src="script.js" defer></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+
 
 
     <link rel="stylesheet" href="style.css">
@@ -23,7 +21,8 @@
 
     <title>Document</title>
 </head>
-<body> 
+
+ <body> 
 
 
 
@@ -33,7 +32,7 @@
     <div id = "baseButtonArea">
         <label> Base Currency </label>  
         <input type="text", id = "userBaseInput">
-        <button type = "button", id = "baseButton", onclick="loopEachMap()"> 
+        <button type = "button", id = "baseButton", onclick="bigRun()"> 
             Reset Base Currency </button>
     </div>
 

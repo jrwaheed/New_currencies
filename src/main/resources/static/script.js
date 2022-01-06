@@ -1,4 +1,5 @@
 
+
 function grabBaseCurrency () {
     var baseCurrencySelection = document.getElementById("userBaseInput").value;
     return baseCurrencySelection
@@ -106,15 +107,17 @@ async function primaryFunction(element) {
         
 };    
 
-async function loopEachMap(){
+async function bigRun(){
     const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
     
     for(const element of getAllCurrencies()){
         await primaryFunction(element);
-        await delay(500);
+        await delay(200);
     }   
     
-    callJavaMethod();
+    SQLBuildOut();
+    await delay(200)
+    SQLFindArbitrage();
 }
 
 function getAllCurrencies() {
@@ -122,7 +125,7 @@ function getAllCurrencies() {
     return allCurrencyArray;
 }
 
-function callJavaMethod(){
+function SQLBuildOut(){
     var val ="dummy string"
 
     $.ajax({  
@@ -137,4 +140,17 @@ function callJavaMethod(){
     })
 }
 
+function SQLFindArbitrage(){
+    var val ="dummy string"
 
+    $.ajax({  
+        type: 'GET',
+        url:'http://localhost:8080/index3',
+        
+        async: true,
+        cache: false,
+       
+        success: console.log("SQL FindArbitrage completed"),
+        error : onerror
+    })
+}

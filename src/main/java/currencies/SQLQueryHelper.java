@@ -11,15 +11,16 @@ import java.util.HashMap;
 @CrossOrigin
 public class SQLQueryHelper {
 
+    private static final String myURL = "jdbc:mysql://192.168.56.103:3306/Exchange";
+    private static final String user = "jamal";
+    private static final String password = "Ubuntu";
+
+
 
 @RequestMapping(value = "/index2", method = RequestMethod.GET)
-    public void updateTables() throws SQLException {
+    public void updateTables() {
 
         String sql = "CALL buildOut();";
-
-        String myURL = "jdbc:mysql://localhost:3306/Exchange";
-        String user = "root";
-        String password = "TheHulk1*";
 
         try (
         Connection conn = DriverManager.getConnection(myURL, user, password);
@@ -36,13 +37,29 @@ public class SQLQueryHelper {
     }
 
 
-    public void resetAutoIncrement() throws SQLException {
+    @RequestMapping(value = "/index3", method = RequestMethod.GET)
+    public void findArbitrage(){
+
+        String sql = "CALL findArbitrage();";
+
+        try (
+                Connection conn = DriverManager.getConnection(myURL, user, password);
+                CallableStatement stmt = conn.prepareCall(sql);)
+        {
+            stmt.execute();
+            stmt.close();
+            System.out.println("Successfully executed mysql findArbitrage." + new Date());
+        } catch
+        (SQLException ex)
+        {
+            System.out.println("Failure to call findArbitrage()");
+        }
+    }
+
+
+    public void resetAutoIncrement() {
 
         String sql = "CALL resetAutoIncrement();";
-
-        String myURL = "jdbc:mysql://localhost:3306/Exchange";
-        String user = "root";
-        String password = "TheHulk1*";
 
         try (
                 Connection conn = DriverManager.getConnection(myURL, user, password);
@@ -58,14 +75,10 @@ public class SQLQueryHelper {
         }
     }
 
-    public void clearCurrencyTableAndRetain() throws SQLException {
+    public void clearCurrencyTableAndRetain() {
 
         String sql = "CALL clear_and_save_currency_table();";
 
-        String myURL = "jdbc:mysql://localhost:3306/Exchange";
-        String user = "root";
-        String password = "TheHulk1*";
-
         try (
                 Connection conn = DriverManager.getConnection(myURL, user, password);
                 CallableStatement stmt = conn.prepareCall(sql);)
@@ -78,30 +91,5 @@ public class SQLQueryHelper {
         {
             System.out.println("Failure to call clear_and_save_currency_table()");
         }
-    }
-
-    public HashMap findArbitrage(){
-
-        HashMap hashOfPossibilities = new HashMap();
-
-        String sql = "CALL findArbitrage();";
-
-        String myURL = "jdbc:mysql://localhost:3306/Exchange";
-        String user = "root";
-        String password = "TheHulk1*";
-
-        try (
-                Connection conn = DriverManager.getConnection(myURL, user, password);
-                CallableStatement stmt = conn.prepareCall(sql);)
-        {
-            stmt.execute();
-            stmt.close();
-            System.out.println("Successfully executed mysql call clear_and_save_currency_table.");
-        } catch
-        (SQLException ex)
-        {
-            System.out.println("Failure to call clear_and_save_currency_table()");
-        }
-        return hashOfPossibilities;
     }
 }

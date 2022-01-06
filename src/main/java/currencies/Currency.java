@@ -7,12 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.math.BigDecimal;
 
+
 @Entity
 public class Currency {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     private String ticker;
+
     private BigDecimal value;
     private String base;
 
