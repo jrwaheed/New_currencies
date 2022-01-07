@@ -22,12 +22,10 @@ public class Application {
         SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
 
         SpringApplication.run(Application.class, args);
+
         sqlQueryHelper.resetAutoIncrement();
         sqlQueryHelper.clearCurrencyTableAndRetain();
+
     }
 
-
-    private void updateSQLTables () throws SQLException {
-        sqlQueryHelper.updateTables();
-    }
 }

@@ -7,7 +7,7 @@ async function fullCurrencyMapFetch() {
             var obj = result.data;
             var keys = Object.keys(obj);
             for (var val in keys) {
-                fullCurrencyMap .set(keys["id"], obj["name"]]);
+                fullCurrencyMap .set(keys["id"], obj["name"]);
             }
             console.log(fullCurrencyMap)
         });

@@ -23,9 +23,6 @@ public class MainController {
 
     public final Repository repository;
 
-    public SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
-
-    public Arbitrage arbitrage = new Arbitrage();
 
     public MainController(Repository repository) {
         this.repository = repository;
@@ -66,8 +63,5 @@ public class MainController {
                     " for base " + newCurrency.getBase());
             repository.save(newCurrency);
         }
-
     }
-
-
 }
