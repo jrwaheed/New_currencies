@@ -1,5 +1,5 @@
 function SQLGetArbitrage(){
-    var ArbCombos ="";
+    var ArbCombos = [];
 
     $.ajax({  
         headers: { 
@@ -11,13 +11,17 @@ function SQLGetArbitrage(){
         
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        
+        async: false,
         success: function(response){
         ArbCombos = response;
         }
     });
+    for(var i = 0; i < ArbCombos.length; i++){
+        console.log(ArbCombos[i])
+        
+    };
 
-    console.log(ArbCombos)
+    ArbCombos.find(ArbCombos=>ArbCombos.FullCombo)
     
 
       
