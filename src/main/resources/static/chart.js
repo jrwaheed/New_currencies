@@ -1,13 +1,23 @@
 
+import {SQLCalcArbitrage} from '/src/main/resources/static/SQLGetArbitrage.js';
+import {getFullComboList} from '/src/main/resources/static/SQLGetArbitrage.js';
+import {getDeltaList} from '/src/main/resources/static/SQLGetArbitrage.js';
+
+let ArbCombos = SQLCalcArbitrage();
+let fullComboList = getFullComboList(ArbCombos);
+let deltaList = getDeltaList(ArbCombos);
+
         const ctx = document.getElementById('myChart').getContext('2d');
 
         const CurrencyChart = new Chart(ctx, {
     type: 'radar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: fullComboList,
+        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: deltaList,
+            //data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

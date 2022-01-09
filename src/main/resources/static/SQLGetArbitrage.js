@@ -1,4 +1,4 @@
-function SQLGetArbitrage(){
+function SQLCalcArbitrage(){
     var ArbCombos = [];
 
     $.ajax({  
@@ -18,11 +18,21 @@ function SQLGetArbitrage(){
     });
     for(var i = 0; i < ArbCombos.length; i++){
         console.log(ArbCombos[i])
-        
     };
+    return ArbCombos;
 
-    ArbCombos.find(ArbCombos=>ArbCombos.FullCombo)
-    
-
-      
 }
+ 
+function getFullComboList(ArbCombos){
+    let fullComboList = ArbCombos.map(element => element.fullCombo);
+    console.log(fullComboList);
+    return fullComboList
+}
+
+function getDeltaList(ArbCombos){
+    let deltaList = ArbCombos.map(element => element.legOneValue);
+    console.log(deltaList);
+    return deltaList;
+}
+
+export {SQLCalcArbitrage, getFullComboList, getDeltaList}

@@ -47,9 +47,9 @@
             <br>
             <br>
             <div>
-                <button type = "button", id = "TargetsButton", onclick="SQLGetArbitrage()", action="$conn"> 
+                <button type = "button", id = "TargetsButton", onclick="SQLCalcArbitrage()", action="$conn"> 
                 Get Arb Opportunities from SQL </button>
-                <script src="SQLGetArbitrage.js"></script>  
+                <script type= "module" src="SQLGetArbitrage.js"></script>  
             </div>
             <br>
 
@@ -114,7 +114,8 @@
 
     <div class="container1">
         <canvas id="myChart"  width="400" height="400" ></canvas>
-        <script src="chart.js"></script>   
+        <script type= "module" src="chart.js"></script>
+           
     </div>
 
     
