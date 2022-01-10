@@ -47,9 +47,15 @@
             <br>
             <br>
             <div>
-                <button type = "button", id = "TargetsButton", onclick="SQLCalcArbitrage()", action="$conn"> 
+                <!-- action="$conn" --> 
+                <button type = "button", id = "TargetsButton"> 
                 Get Arb Opportunities from SQL </button>
-                <script type= "module" src="SQLGetArbitrage.js"></script>  
+                <script type = "module"> import {buildChart} 
+                from './SQLGetArbitrage.js'
+
+
+                document.getElementById("TargetsButton").addEventListener("click", buildChart, true)
+                </script>  
             </div>
             <br>
 
@@ -65,33 +71,6 @@
             <input type="text", id = "target3">
             <br>
 
-            <label> Target Currency 4 </label>  
-            <input type="text", id = "target4">
-            <br>
-
-            <label> Target Currency 5 </label>  
-            <input type="text", id = "target5">
-            <br>
-
-            <label> Target Currency 6 </label>  
-            <input type="text", id = "target6">
-            <br>
-
-            <label> Target Currency 7 </label>  
-            <input type="text", id = "target7">
-            <br>
-
-            <label> Target Currency 8 </label>  
-            <input type="text", id = "target8">
-            <br>
-
-            <label> Target Currency 9 </label>  
-            <input type="text", id = "target9">
-            <br>
-
-            <label> Target Currency 10 </label>  
-            <input type="text", id = "target10">
-            <br>
         </div>
         
 

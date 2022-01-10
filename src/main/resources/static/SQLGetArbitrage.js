@@ -1,3 +1,7 @@
+import {buildChart} from '/src/main/resources/static/chart.js';
+
+
+
 function SQLCalcArbitrage(){
     var ArbCombos = [];
 
@@ -34,5 +38,7 @@ function getDeltaList(ArbCombos){
     console.log(deltaList);
     return deltaList;
 }
+
+buildChart();
 
 export {SQLCalcArbitrage, getFullComboList, getDeltaList}
