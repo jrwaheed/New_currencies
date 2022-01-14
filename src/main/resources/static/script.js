@@ -8,7 +8,7 @@ function grabBaseCurrency () {
 
 function grabTargetCurrencies() {
     const targetArray = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 3; i++) {
         let targetNumber = "";
         targetNumber = "target" + i;
         if (document.getElementById(targetNumber).value != "") {

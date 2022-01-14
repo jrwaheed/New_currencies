@@ -50,11 +50,11 @@
                 <!-- action="$conn" --> 
                 <button type = "button", id = "TargetsButton"> 
                 Get Arb Opportunities from SQL </button>
-                <script type = "module"> import {buildChart} 
-                from './SQLGetArbitrage.js'
+                <script type = "module"> import {rebuildChart} 
+                from './chart.js'
 
 
-                document.getElementById("TargetsButton").addEventListener("click", buildChart, true)
+                document.getElementById("TargetsButton").addEventListener("click", rebuildChart, true)
                 </script>  
             </div>
             <br>
@@ -92,7 +92,7 @@
     </div>
 
     <div class="container1">
-        <canvas id="myChart"  width="400" height="400" ></canvas>
+        <canvas id="ArbChart"  width="400" height="400" ></canvas>
         <script type= "module" src="chart.js"></script>
            
     </div>

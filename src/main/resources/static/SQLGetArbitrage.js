@@ -1,5 +1,3 @@
-import {buildChart} from '/src/main/resources/static/chart.js';
-
 
 
 function SQLCalcArbitrage(){
@@ -27,18 +25,6 @@ function SQLCalcArbitrage(){
 
 }
  
-function getFullComboList(ArbCombos){
-    let fullComboList = ArbCombos.map(element => element.fullCombo);
-    console.log(fullComboList);
-    return fullComboList
-}
+export {SQLCalcArbitrage}
 
-function getDeltaList(ArbCombos){
-    let deltaList = ArbCombos.map(element => element.legOneValue);
-    console.log(deltaList);
-    return deltaList;
-}
 
-buildChart();
-
-export {SQLCalcArbitrage, getFullComboList, getDeltaList}

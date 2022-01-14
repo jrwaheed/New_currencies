@@ -1,25 +1,39 @@
 
 import {SQLCalcArbitrage} from '/src/main/resources/static/SQLGetArbitrage.js';
-import {getFullComboList} from '/src/main/resources/static/SQLGetArbitrage.js';
-import {getDeltaList} from '/src/main/resources/static/SQLGetArbitrage.js';
+
+let ArbCombos = SQLCalcArbitrage();
+
+
+function getFullComboList(ArbCombos){
+    let fullComboList = ArbCombos.map(element => element.fullCombo);
+    console.log(fullComboList);
+    return fullComboList
+}
+
+function getDeltaList(ArbCombos){
+    let deltaList = ArbCombos.map(element => element.legOneValue);
+    console.log(deltaList);
+    return deltaList;
+}
+
 
 
 function buildChart(){
-    let ArbCombos = SQLCalcArbitrage();
-    let fullComboList = getFullComboList(ArbCombos);
-    let deltaList = getDeltaList(ArbCombos);
+    
+    let chartComboList = getFullComboList(ArbCombos);
+    let chartDeltaList = getDeltaList(ArbCombos);
 
-            const ctx = document.getElementById('myChart').getContext('2d');
+    const grapharea = document.getElementById('ArbChart').getContext('2d');
 
-            const CurrencyChart = new Chart(ctx, {
+    const CurrencyChart = new Chart(grapharea, {
         type: 'radar',
         data: {
-            labels: fullComboList,
-            //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: chartComboList,
+
             datasets: [{
                 label: '# of Votes',
-                data: deltaList,
-                //data: [12, 19, 3, 5, 2, 3],
+                data: chartDeltaList,
+    
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -49,4 +63,11 @@ function buildChart(){
     });
 }
 
-export {buildChart}
+function rebuildChart(){
+    
+    buildChart();
+}
+
+rebuildChart();
+
+export {rebuildChart}
