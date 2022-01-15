@@ -1,9 +1,24 @@
+function refreshChart(){
+    let ArbCombos = SQLCalcArbitrage();
 
-import {SQLCalcArbitrage} from '/src/main/resources/static/SQLGetArbitrage.js';
+    function getFullComboList(ArbCombos){
+        let fullComboList = ArbCombos.map(element => element.fullCombo);
+        console.log(fullComboList);
+        return fullComboList
+    };
+    
+    function getDeltaList(ArbCombos){
+        let fullDeltaList = ArbCombos.map(element => element.legOneValue);
+        console.log(fullDeltaList);
+        return fullDeltaList;
+    };
+    
+    var chartComboList = getFullComboList(ArbCombos);
+    var chartDeltaList = getDeltaList(ArbCombos);
 
+    let CurrencyChart  = initiateChart(chartComboList,chartDeltaList);
 
-function initiateChart(chartComboList, chartDeltaList){
-    const grapharea = document.getElementById('ArbChart').getContext('2d');
+    CurrencyChart.destroy();
 
     let CurrencyChart = new Chart(grapharea, {
         type: 'radar',
@@ -41,36 +56,8 @@ function initiateChart(chartComboList, chartDeltaList){
             }
         }
     });
-    return CurrencyChart
-}
-//window.initiateChart = initiateChart;
 
-
-function buildChart(){
-    let ArbCombos = SQLCalcArbitrage();
-
-    function getFullComboList(ArbCombos){
-        let fullComboList = ArbCombos.map(element => element.fullCombo);
-        console.log(fullComboList);
-        return fullComboList
-    };
-    
-    function getDeltaList(ArbCombos){
-        let fullDeltaList = ArbCombos.map(element => element.legOneValue);
-        console.log(fullDeltaList);
-        return fullDeltaList;
-    };
-    
-    var chartComboList = getFullComboList(ArbCombos);
-    var chartDeltaList = getDeltaList(ArbCombos);
-
-    let CurrencyChart  = initiateChart(chartComboList,chartDeltaList);
-
-    //CurrencyChart.data.datasets[0].data = chartDeltaList;
-    //CurrencyChart.data.datasets[0].labels = chartComboList;
     CurrencyChart.update();
     CurrencyChart.render();
     console.log("Do something")
 }
-window.buildChart = buildChart;
-

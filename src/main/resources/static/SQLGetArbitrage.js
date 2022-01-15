@@ -22,9 +22,6 @@ function SQLCalcArbitrage(){
         console.log(ArbCombos[i])
     };
     return ArbCombos;
+};
 
-}
- 
 export {SQLCalcArbitrage}
-
-

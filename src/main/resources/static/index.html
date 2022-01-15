@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +8,12 @@
 
     <script src= "onloadScript.js"></script>
     <script src="script.js" defer></script>
-    
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"> </script>
-
-
+    <script type="module" src="SQLGetArbitrage.js"></script>  
+    <script type="module" src = "chart.js"></script>
+  
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"> </script> 
 
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -26,77 +22,61 @@
 </head>
 
  <body> 
+    <div class="row">
+        <div class="col-4">
+            <h1>Tri-Currency Arbitrage</h1>
+        </div>
+
+        <div class="col-2">
+            <button type = "button", class="btn btn-success", onclick="bigRun()"> 
+                Big Initial Run </button>
+        </div>
+
+        <div class="col-2">
+            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            Build Arb Chart </button>
+        </div>
+
+        <div class="col-2">
+            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            Set Time Interval </button>
+        </div>
+
+        <div class="col-2">
+            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            Reset All </button>
+        </div>
+    <div>
 
 
+<div class = "container-12">
+     <div class ="row"> 
+        <div class = "col-4">
+                
+                <label> Base Currency </label>  
+                <input type="text", id = "target1">
+                <br>    
+                
+                <label> Target Currency 1 </label>  
+                <input type="text", id = "target1">
+                <br>
 
-<h1>Tri-Currency Arbitrage</h1>
-<p></p>
+                <label> Target Currency 2 </label>  
+                <input type="text", id = "target2">
+                <br>
 
-    <div id = "baseButtonArea">
-        <label> Base Currency </label>  
-        <input type="text", id = "userBaseInput">
-        <button type = "button", id = "baseButton", onclick="bigRun()"> 
-            Big Initial Run </button>
+                <label> Target Currency 3 </label>  
+                <input type="text", id = "target3">
+                <br>    
+        </div>
+        <div class ="col-8">
+            <h1>Arbitrage Chart </h1>
+            
+            <canvas id="ArbChart" width="400" height="400" ></canvas>  
+        </div>
     </div>
-
-<p></p>
-
-    <div id = "container1">
-        <div id = verticalContainer>
-
-            <br>
-            <br>
-            <div>
-                <!-- action="$conn" --> 
-                <button type = "button", id = "TargetsButton"> 
-                Get Arb Opportunities from SQL </button>
-                <script type = "module"> import {rebuildChart} 
-                from './chart.js'
-
-
-                document.getElementById("TargetsButton").addEventListener("click", rebuildChart, true)
-                </script>  
-            </div>
-            <br>
-
-            <label> Target Currency 1 </label>  
-            <input type="text", id = "target1">
-            <br>
-
-            <label> Target Currency 2 </label>  
-            <input type="text", id = "target2">
-            <br>
-
-            <label> Target Currency 3 </label>  
-            <input type="text", id = "target3">
-            <br>
-
-        </div>
-        
-
-        <div >
-            <ul id="currencies">
-            </ul>   
-        </div>
-
-        <div >
-            <ul id="values"> 
-            </ul>
-        </div>
-        
-        <div >
-           <p id="HtmlJSONtargets">  </p> 
-        </div>
-
-
-    </div>
-
-    <div class="container1">
-        <canvas id="ArbChart"  width="400" height="400" ></canvas>
-        <script type= "module" src="chart.js"></script>
-           
-    </div>
-
-    
+</div>            
+  
+ 
 </body>
 </html>
