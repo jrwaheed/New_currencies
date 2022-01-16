@@ -19,22 +19,38 @@ async function fullCurrencyMapFetch() {
                   
             };
             console.log(fullCurrencyMap)
-            })
-
-        
-    }    
-;
+            return fullCurrencyMap
+            })        
+        };
         
            
 
 fullCurrencyMapFetch();
 
 
-/*
-for(var i=0; i < obj.length; i++){
-    for(var element in obj[i]){
-        console.log(obj[i][element])
+function getDropDownList(){
+    var select = document.getElementById("selectCurrency");
+    var fullCurrencyMap = fullCurrencyMapFetch();
+    var fullCurrencyArray =[];
 
-          console.log(obj[0].id);
-                    console.log(obj[0].name);
-*/
+    for (const [key, value] of fullCurrencyMap.entries()){
+        fullCurrencyArray.push(fullCurrencyMap[key])
+    }
+        
+    });
+
+    for(var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }
+}
+
+getDropDownList();
+
+
+
+window.fullCurrencyMapFetch = fullCurrencyMapFetch;
+window.getDropDownList = getDropDownList;

@@ -54,7 +54,7 @@
         <div class = "col-4">
                 
                 <label> Base Currency </label>  
-                <input type="text", id = "target1">
+                <input list type="text", id = "target1">
                 <br>    
                 
                 <label> Target Currency 1 </label>  
@@ -68,6 +68,12 @@
                 <label> Target Currency 3 </label>  
                 <input type="text", id = "target3">
                 <br>    
+
+                <form>
+                    <select id = "selectCurrency" onload="getDropDownList()">
+                        <option> Select a Currency </option>
+                    </select>
+                </form>
         </div>
         <div class ="col-8">
             <h1>Arbitrage Chart </h1>
