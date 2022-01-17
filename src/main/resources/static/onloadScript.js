@@ -48,6 +48,10 @@ async function getDropDownList(){
     console.log(fullCurrencyArray); 
 
 
+    var getAllDropDownEligibleElements = document.getElementsByClassName("dropDownEligible")
+    console.log(getAllDropDownEligibleElements.length)
+
+
     return fullCurrencyArray;  
 };
 
