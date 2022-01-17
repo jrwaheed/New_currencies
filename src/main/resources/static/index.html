@@ -21,7 +21,7 @@
     <title>Document</title>
 </head>
 
- <body onload="javascript:getDropDownList"> 
+ <body > <!-- onload="javascript:getDropDownList"-->
     <div class="row">
         <div class="col-4">
             <h1>Tri-Currency Arbitrage</h1>
@@ -53,27 +53,32 @@
 
 <div class = "container-12">
      <div class ="row"> 
-        <div class = "col-4">
-                
-               
-                
-                <label class = "dropDownEligible"> Target Currency 1 </label>  
-                <input type="text", id = "target1">
-                <br>
+        <div class = "col-4" >
+            <form>
+                <select id = "selectCurrency">
+                    <option> Select a Currency </option>
+                </select>
+            </form>
 
-                <label > Target Currency 2 </label>  
-                <input type="text", id = "target2">
-                <br>
+            <form >
+                <select id = "selectCurrency">
+                    <option  > Select a Currency </option>
+                </select>
+            </form>
 
-                <label> Target Currency 3 </label>  
-                <input type="text", id = "target3">
-                <br>    
+            <form>
+                <select  >
+                    <option  > Select a Currency </option>
+                </select>
+            </form>   
 
-                <form>
-                    <select id = "selectCurrency" onload="getDropDownList()">
-                        <option class = "dropDownEligible"> Select a Currency </option>
-                    </select>
-                </form>
+            <form>
+                <select >
+                    <option> Select a Currency </option>
+                </select>
+            </form>        
+         
+
         </div>
         <div class ="col-8">
             <h1>Arbitrage Chart </h1>

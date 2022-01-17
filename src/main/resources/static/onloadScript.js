@@ -24,7 +24,7 @@ async function getDropDownList(){
 
     var fullCurrencyMap =  await fullCurrencyMapFetch();
     var fullCurrencyArray =[];
-    var select = document.getElementById("selectCurrency");
+    var select = document.getElementByClass("selectCurrency").;
 
 
     for (let [key, value] of fullCurrencyMap){
@@ -49,7 +49,7 @@ async function getDropDownList(){
 
 
     var getAllDropDownEligibleElements = document.getElementsByClassName("dropDownEligible")
-    console.log(getAllDropDownEligibleElements.length)
+    console.log(getAllDropDownEligibleElements)
 
 
     return fullCurrencyArray;  
