@@ -21,15 +21,17 @@
     <title>Document</title>
 </head>
 
- <body> 
+ <body onload="javascript:getDropDownList"> 
     <div class="row">
         <div class="col-4">
             <h1>Tri-Currency Arbitrage</h1>
         </div>
 
         <div class="col-2">
-            <button type = "button", class="btn btn-success", onclick="bigRun()"> 
-                Big Initial Run </button>
+            <label> Base Currency </label>  
+            <input type="text", id = "userBaseInput">
+            <button type = "button", id = "baseButton", onclick="bigRun()"> 
+            Big Initial Run </button>
         </div>
 
         <div class="col-2">
@@ -53,9 +55,7 @@
      <div class ="row"> 
         <div class = "col-4">
                 
-                <label> Base Currency </label>  
-                <input list type="text", id = "target1">
-                <br>    
+               
                 
                 <label> Target Currency 1 </label>  
                 <input type="text", id = "target1">

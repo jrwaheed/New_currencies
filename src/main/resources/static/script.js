@@ -14,7 +14,11 @@ function grabTargetCurrencies() {
         if (document.getElementById(targetNumber).value != "") {
             targetArray.push(document.getElementById(targetNumber).value)
         } else { }
+
     }
+ 
+
+
     return targetArray;
 };
 
@@ -44,6 +48,7 @@ async function fullAPIFetch(element) {
         });
 };
 
+/*
 function postTargetsInMap(targetArray, baseCurrenciesMap) {
     let htmlTargets = "";  
     targetArray.forEach(element => {
@@ -51,6 +56,7 @@ function postTargetsInMap(targetArray, baseCurrenciesMap) {
         document.getElementById("currencies").innerHTML = htmlTargets;
     });
 };
+*/
 
 function makeRollingMap (element, allCurrencyArray, workingAPIMap){
     const rollingMap = new Map();
@@ -131,7 +137,8 @@ function SQLBuildOut(){
     $.ajax({  
         type: 'GET',
         url:'http://localhost:8080/index2',
-        
+        //url:'http://localhost:5500/index2',
+
         async: true,
         cache: false,
        

@@ -20,14 +20,19 @@ import java.util.List;
 @CrossOrigin
 public class SQLQueryHelper {
 /*
+    Campus
     private static final String myURL = "jdbc:mysql://192.168.56.103:3306/Exchange";
     private static final String user = "jamal";
     private static final String password = "Ubuntu";
 
-*/
+    Home
     private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
     private static final String user = "root";
     private static final String password = "TheHulk1*";
+*/
+    private static final String myURL = "jdbc:mysql://192.168.56.103:3306/Exchange";
+    private static final String user = "jamal";
+    private static final String password = "Ubuntu";
 
 
 @RequestMapping(value = "/index2", method = RequestMethod.GET)
@@ -61,7 +66,7 @@ public class SQLQueryHelper {
         {
             stmt.execute();
             stmt.close();
-            System.out.println("Successfully executed mysql findArbitrage." + new Date());
+            System.out.println("Successfully executed mysql findArbitrage. " + new Date());
         } catch
         (SQLException ex)
         {
@@ -69,8 +74,9 @@ public class SQLQueryHelper {
         }
     }
 
-    //produces = MediaType.APPLICATION_JSON_VALUE
-    @CrossOrigin("http://127.0.0.1:8082/")
+    //@CrossOrigin("http://127.0.0.1:8080/") //Home
+    @CrossOrigin("http://127.0.0.1:5500/") //Campus
+
     @RequestMapping(value = "/index4", method = RequestMethod.GET)
     public String getSQLArbitrageValues() {
 
@@ -89,7 +95,7 @@ public class SQLQueryHelper {
                         rs.getString("LegTwo"), rs.getString("LegThree"),
                         rs.getBigDecimal("LegOneValue"), rs.getBigDecimal("LegTwoValue"),
                         rs.getBigDecimal("LegThreeValue"), rs.getBigDecimal("LegTotal"),
-                        rs.getBigDecimal("Delta"), rs.getString("FullCombo"));
+                        rs.getBigDecimal("Delta"), rs.getString("Delta"));
 
                 ArbCombos.add(combination);
             }
