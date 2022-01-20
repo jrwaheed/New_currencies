@@ -24,16 +24,14 @@ async function getDropDownList(){
 
     var fullCurrencyMap =  await fullCurrencyMapFetch();
     var fullCurrencyArray =[];
-    var select = document.getElementByClass("selectCurrency").;
+    //var select = document.getElementByClass("selectCurrency");
 
 
     for (let [key, value] of fullCurrencyMap){
        fullCurrencyArray.push(key);   
     }
 
-    
 
-    
 
     for(var i = 0; i < fullCurrencyArray.length; i++){
         var opt = fullCurrencyArray[i];
@@ -42,7 +40,7 @@ async function getDropDownList(){
         ele.text = opt;
         ele.value = fullCurrencyMap.get(ele.text)
 
-        select.add(ele);
+        //select.add(ele);
     }
 
     console.log(fullCurrencyArray); 
