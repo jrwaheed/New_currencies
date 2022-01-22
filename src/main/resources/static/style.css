@@ -23,12 +23,7 @@
     flex-direction: row;
     align-items: center;
 }
-#userBaseInput {
-    margin: 10px;
-    height: 30px;
-    width: 100px;
 
-}
 #baseButton {
     height: 30px;
     width: 200px;

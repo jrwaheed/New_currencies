@@ -48,15 +48,6 @@ async function fullAPIFetch(element) {
         });
 };
 
-/*
-function postTargetsInMap(targetArray, baseCurrenciesMap) {
-    let htmlTargets = "";  
-    targetArray.forEach(element => {
-        htmlTargets += "<li>" + element + "    :    " + baseCurrenciesMap.get(element) + "</li>";
-        document.getElementById("currencies").innerHTML = htmlTargets;
-    });
-};
-*/
 
 function makeRollingMap (element, allCurrencyArray, workingAPIMap){
     const rollingMap = new Map();

@@ -39,6 +39,33 @@ async function fullCurrencyMapFetch() {
 };
 
 
+async function createDropDownListBase(){
+
+    
+    var selectBase = document.getElementById("userBaseInput");
+
+    var fullCurrencyMap = await getFullCurrencyMap();
+    var fullCurrencyArray =[];
+
+    console.log(fullCurrencyMap)
+    console.log(fullCurrencyMap.size)
+
+    for (let [key, value] of fullCurrencyMap){
+          fullCurrencyArray.push(key);  
+    }
+    
+    for(var i = 0; i < fullCurrencyArray.length; i++){
+        var opt = fullCurrencyArray[i];
+
+        var ele = document.createElement("option");
+        ele.text = opt;
+        ele.value = fullCurrencyMap.get(ele.text);
+        
+        selectBase.add(ele);
+     }
+}
+
+
 async function createDropDownList1(){
 
     console.log("creatDropDown function hit")
@@ -118,7 +145,7 @@ async function createDropDownList3(){
 }
 
 function RIPIT(){
-   
+    createDropDownListBase();
     createDropDownList1();
     createDropDownList2();
     createDropDownList3();

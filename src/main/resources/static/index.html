@@ -9,7 +9,7 @@
     <script src= "onloadScript.js"></script>
     <script src="script.js" defer></script>
     <script type="module" src="SQLGetArbitrage.js"></script>  
-    <script type="module" src = "chart.js"></script>
+    <script type="module" src = "radarChart.js"></script>
   
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
@@ -21,12 +21,36 @@
     <title>Document</title>
 </head>
 
- <body onload="javascript:RIPIT()"> <!-- onload="javascript:getDropDownList"-->
-    <div class="row">
-        <div class="col-2">
-            <h1>Tri-Currency Arbitrage</h1>
+ <body onload="javascript:RIPIT()"> 
+    <div class="row" style="background-color: black;">
+        <div class="col-12">
+            <h1 style="color:azure;">TRI-CURRENCY ARBITRAGE</h1>
         </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-6">
+            <button type = "button", id = "baseButton" class="btn btn-success", onclick="bigRun()"> 
+            Big Initial Run </button>
+        
+            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            Build Arb Chart </button>
+        
 
+        
+            <button type="button" class="btn btn-success" > 
+            Set Time Interval </button>
+        
+
+        
+            <button type="button" class="btn btn-success" > 
+            Reset All </button>
+        </div>
+    </div>
+    
+    
+
+<!--
         <div class="col-2">
             <label> Number of Currencies </label>  
             <input type="number", id = "numberOfCurrencies">
@@ -34,63 +58,36 @@
             Select Number of Curriences
          </button>
         </div>
-
-
-        <div class="col-2">
-            <label> Base Currency </label>  
-            <input type="text", id = "userBaseInput">
-            <button type = "button", id = "baseButton", onclick="bigRun()"> 
-            Big Initial Run </button>
-        </div>
-
-        <div class="col-2">
-            <button type="button" class="btn btn-success" onclick="buildChart()"> 
-            Build Arb Chart </button>
-        </div>
-
-        <div class="col-2">
-            <button type="button" class="btn btn-success" > 
-            Set Time Interval </button>
-        </div>
-
-        <div class="col-2">
-            <button type="button" class="btn btn-success" > 
-            Reset All </button>
-        </div>
-    <div>
+    -->
 
 
 <div class = "container-12">
      <div class ="row"> 
         <div class = "col-4" >
+                      
             
-            <form>
-                <select id = "dropDownEligible1" >
+                <select id = "userBaseInput" class="form-select" aria-label="Default select example" style="margin: 10px; background-color:#00cc99" >
+                    <option>Select the Base Currency</option>
+                </select>
+            
+                <select id = "dropDownEligible1" class="form-select" aria-label="Default select example" style="margin: 10px; background-color:#e6fff9">
                     <option>Select a Currency</option>
                 </select>
-            </form>
-            
-
-            
-            <form>
-                <select id = "dropDownEligible2">
+         
+                <select id = "dropDownEligible2" class="form-select" aria-label="Default select example"style="margin: 10px;background-color:#e6fff9">
                     <option>Select a Currency</option>
                 </select>
-            </form>
+            
+                <select id = "dropDownEligible3" class="form-select" aria-label="Default select example" style="margin: 10px;background-color:#e6fff9">
+                    <option>Select a Currency</option>
+                </select>
            
-
-            
-            <form>
-                <select id = "dropDownEligible3">
-                    <option>Select a Currency</option>
-                </select>
-            </form>
             
         </div>
         <div class ="col-8">
             <h1>Arbitrage Chart </h1>
             
-            <canvas id="ArbChart" width="400" height="400" ></canvas>  
+            <canvas id="ArbChart" width="100" height="100" ></canvas>  
         </div>
     </div>
 </div>            
