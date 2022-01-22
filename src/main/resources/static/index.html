@@ -5,11 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+    <script type="module" src="deliveryService.js"></script>
     <script src= "onloadScript.js"></script>
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
+
+
     <script type="module" src="SQLGetArbitrage.js"></script>  
     <script type="module" src = "radarChart.js"></script>
+    <script type="module" src="SQLGetScatterPlotData.js"></script>
   
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
@@ -30,7 +33,7 @@
    
     <div class="row">
         <div class="col-6">
-            <button type = "button", id = "baseButton" class="btn btn-success", onclick="bigRun()"> 
+            <button type = "button", id = "baseButton" class="btn btn-success", onclick="DSinitialRun()"> 
             Big Initial Run </button>
         
             <button type="button" class="btn btn-success" onclick="buildChart()"> 
@@ -41,8 +44,7 @@
             <button type="button" class="btn btn-success" > 
             Set Time Interval </button>
         
-
-        
+     
             <button type="button" class="btn btn-success" > 
             Reset All </button>
         </div>
@@ -63,7 +65,7 @@
 
 <div class = "container-12">
      <div class ="row"> 
-        <div class = "col-4" >
+        <div class = "col-2" >
                       
             
                 <select id = "userBaseInput" class="form-select" aria-label="Default select example" style="margin: 10px; background-color:#00cc99" >
@@ -81,10 +83,22 @@
                 <select id = "dropDownEligible3" class="form-select" aria-label="Default select example" style="margin: 10px;background-color:#e6fff9">
                     <option>Select a Currency</option>
                 </select>
-           
-            
         </div>
-        <div class ="col-8">
+
+        <div class="col-2"> 
+            <ul id = "selectedCombos">
+            
+            </ul>
+
+        </div>
+
+        <div class ="col-6">
+            <h1>Scatter Chart </h1>
+            
+            <canvas id="ScatterChart" width="100" height="100" ></canvas>  
+        </div>
+
+        <div class ="col-2">
             <h1>Arbitrage Chart </h1>
             
             <canvas id="ArbChart" width="100" height="100" ></canvas>  

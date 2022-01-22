@@ -20,6 +20,10 @@ public class Combination {
     public Combination() {
     }
 
+    public Combination(String legOne){
+        this.legOne = legOne;
+    }
+
     public Combination(String legOne, String legTwo, String legThree, BigDecimal legOneValue,
                        BigDecimal legTwoValue, BigDecimal legThreeValue, BigDecimal legTotal, BigDecimal delta, String fullCombo) {
         this.legOne = legOne;

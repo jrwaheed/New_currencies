@@ -58,6 +58,7 @@ public class MainController {
             newCurrency.setBase(newBase);
             newCurrency.setTicker(newTicker);
             newCurrency.setValue(newValue);
+    //        newCurrency.setCombo(newTicker + "_"+ newBase);
 
             System.out.println("The ticker " + newCurrency.getTicker() + " has the value " + newCurrency.getValue() +
                     " for base " + newCurrency.getBase());

@@ -1,8 +1,8 @@
-import {SQLCalcArbitrage} from '/src/main/resources/static/SQLGetArbitrage.js';
 
 
-function initiateChart(chartComboList, chartDeltaList){
-    const grapharea = document.getElementById('ArbChart').getContext('2d');
+
+function initiateScatterChart(chartComboList, chartDeltaList){
+    const grapharea = document.getElementById('ScatterChart').getContext('2d');
 
     let scatterChart = new Chart(grapharea, {
         type: 'scatter',

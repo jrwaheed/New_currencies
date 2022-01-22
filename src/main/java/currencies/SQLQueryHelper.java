@@ -35,7 +35,47 @@ public class SQLQueryHelper {
     private static final String password = "TheHulk1*";
 
 
-@RequestMapping(value = "/index2", method = RequestMethod.GET)
+
+
+    public void resetAutoIncrement() {
+
+        String sql = "CALL resetAutoIncrement();";
+
+        try (
+                Connection conn = DriverManager.getConnection(myURL, user, password);
+                CallableStatement stmt = conn.prepareCall(sql);)
+        {
+            stmt.execute();
+            stmt.close();
+            System.out.println("Successfully executed mysql call resetAutoIncrement.");
+        } catch
+        (SQLException ex)
+        {
+            System.out.println("Failure to call resetAutoIncrement()");
+        }
+    }
+
+    public void clearCurrencyTableAndRetain() {
+
+        String sql = "CALL clear_and_save_currency_table();";
+
+        try (
+                Connection conn = DriverManager.getConnection(myURL, user, password);
+                CallableStatement stmt = conn.prepareCall(sql);)
+        {
+            stmt.execute();
+            stmt.close();
+            System.out.println("Successfully executed mysql call clear_and_save_currency_table.");
+        } catch
+        (SQLException ex)
+        {
+            System.out.println("Failure to call clear_and_save_currency_table()");
+        }
+    }
+
+
+
+    @RequestMapping(value = "/index2", method = RequestMethod.GET)
     public void updateTables() {
 
         String sql = "CALL buildOut();";
@@ -117,41 +157,44 @@ public class SQLQueryHelper {
     }
 
 
-    public void resetAutoIncrement() {
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
+    //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
-        String sql = "CALL resetAutoIncrement();";
+    @RequestMapping(value = "/index5", method = RequestMethod.GET)
+    public String getSQLScatterValues() {
 
-        try (
-                Connection conn = DriverManager.getConnection(myURL, user, password);
-                CallableStatement stmt = conn.prepareCall(sql);)
-        {
-            stmt.execute();
+
+        String sql = "SELECT legOne FROM Triangle;";
+        ArrayList<Combination> ScatterCombos = new ArrayList<>();
+
+        String JSON_ScatterCombos = null;
+        try {
+            Connection conn = DriverManager.getConnection(myURL, user, password);
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Combination combination = new Combination(rs.getString("LegOne"));
+                ScatterCombos.add(combination);
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            JSON_ScatterCombos = objectMapper.writeValueAsString(ScatterCombos);
+
+            System.out.println(JSON_ScatterCombos);
+            rs.close();
             stmt.close();
-            System.out.println("Successfully executed mysql call resetAutoIncrement.");
+            conn.close();
+
+
+            System.out.println("Successfully gathered Scatter Data List." + new Date());
         } catch
-        (SQLException ex)
-        {
-            System.out.println("Failure to call resetAutoIncrement()");
+        (SQLException | JsonProcessingException ex) {
+            System.out.println("Failure to gather Scatter Data.");
         }
+        return JSON_ScatterCombos;
     }
 
-    public void clearCurrencyTableAndRetain() {
 
-        String sql = "CALL clear_and_save_currency_table();";
-
-        try (
-                Connection conn = DriverManager.getConnection(myURL, user, password);
-                CallableStatement stmt = conn.prepareCall(sql);)
-        {
-            stmt.execute();
-            stmt.close();
-            System.out.println("Successfully executed mysql call clear_and_save_currency_table.");
-        } catch
-        (SQLException ex)
-        {
-            System.out.println("Failure to call clear_and_save_currency_table()");
-        }
-    }
 
 
     public void getSQLArbitrageValuesTester() {

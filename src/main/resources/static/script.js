@@ -1,4 +1,4 @@
-
+//import {createScatterPlotButtons} from '/src/main/resources/static/SQLGetScatterPlotData.js';
 
 function grabBaseCurrency () {
     var baseCurrencySelection = document.getElementById("userBaseInput").value;
@@ -105,15 +105,15 @@ async function primaryFunction(element) {
 };    
 
 async function bigRun(){
-    const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+    const delay = async (ms = 500) => new Promise(resolve => setTimeout(resolve, ms));
     
     for(const element of getAllCurrencies()){
         await primaryFunction(element);
-        await delay(200);
+        await delay(100);
     }   
     
     SQLBuildOut();
-    await delay(200)
+    await delay(100)
     SQLFindArbitrage();
 }
 
@@ -153,3 +153,5 @@ function SQLFindArbitrage(){
     })
 }
 
+
+export {bigRun}
