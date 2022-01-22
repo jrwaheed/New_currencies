@@ -56,7 +56,7 @@ function buildChart(){
     };
     
     function getDeltaList(ArbCombos){
-        let fullDeltaList = ArbCombos.map(element => element.legOneValue);
+        let fullDeltaList = ArbCombos.map(element => element.delta);
         console.log(fullDeltaList);
         return fullDeltaList;
     };

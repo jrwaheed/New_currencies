@@ -10,8 +10,8 @@ function grabTargetCurrencies() {
     const targetArray = [];
     for (let i = 1; i <= 3; i++) {
         let targetNumber = "";
-        targetNumber = "target" + i;
-        if (document.getElementById(targetNumber).value != "") {
+        targetNumber = "dropDownEligible" + i;
+        if (document.getElementById(targetNumber).value != "Select a Currency") {
             targetArray.push(document.getElementById(targetNumber).value)
         } else { }
 

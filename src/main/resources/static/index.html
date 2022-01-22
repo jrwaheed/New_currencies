@@ -21,11 +21,20 @@
     <title>Document</title>
 </head>
 
- <body > <!-- onload="javascript:getDropDownList"-->
+ <body onload="javascript:RIPIT()"> <!-- onload="javascript:getDropDownList"-->
     <div class="row">
-        <div class="col-4">
+        <div class="col-2">
             <h1>Tri-Currency Arbitrage</h1>
         </div>
+
+        <div class="col-2">
+            <label> Number of Currencies </label>  
+            <input type="number", id = "numberOfCurrencies">
+            <button type = "button", id = "numberButton", onclick="getDropDownList(NumberOfCurrencies)"> 
+            Select Number of Curriences
+         </button>
+        </div>
+
 
         <div class="col-2">
             <label> Base Currency </label>  
@@ -40,12 +49,12 @@
         </div>
 
         <div class="col-2">
-            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            <button type="button" class="btn btn-success" > 
             Set Time Interval </button>
         </div>
 
         <div class="col-2">
-            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            <button type="button" class="btn btn-success" > 
             Reset All </button>
         </div>
     <div>
@@ -54,31 +63,29 @@
 <div class = "container-12">
      <div class ="row"> 
         <div class = "col-4" >
+            
             <form>
-                <select id = "selectCurrency">
-                    <option> Select a Currency </option>
+                <select id = "dropDownEligible1" >
+                    <option>Select a Currency</option>
                 </select>
             </form>
+            
 
-            <form >
-                <select id = "selectCurrency">
-                    <option  > Select a Currency </option>
+            
+            <form>
+                <select id = "dropDownEligible2">
+                    <option>Select a Currency</option>
                 </select>
             </form>
+           
 
+            
             <form>
-                <select  >
-                    <option  > Select a Currency </option>
+                <select id = "dropDownEligible3">
+                    <option>Select a Currency</option>
                 </select>
-            </form>   
-
-            <form>
-                <select >
-                    <option> Select a Currency </option>
-                </select>
-            </form>        
-         
-
+            </form>
+            
         </div>
         <div class ="col-8">
             <h1>Arbitrage Chart </h1>

@@ -74,7 +74,7 @@ public class SQLQueryHelper {
         }
     }
 
-    @CrossOrigin("http://127.0.0.1:8080/") //Home
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
     //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
     @RequestMapping(value = "/index4", method = RequestMethod.GET)
@@ -95,7 +95,7 @@ public class SQLQueryHelper {
                         rs.getString("LegTwo"), rs.getString("LegThree"),
                         rs.getBigDecimal("LegOneValue"), rs.getBigDecimal("LegTwoValue"),
                         rs.getBigDecimal("LegThreeValue"), rs.getBigDecimal("LegTotal"),
-                        rs.getBigDecimal("Delta"), rs.getString("Delta"));
+                        rs.getBigDecimal("Delta"), rs.getString("FullCombo"));
 
                 ArbCombos.add(combination);
             }
