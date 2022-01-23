@@ -36,12 +36,30 @@ async function createScatterPlotButtons(){
     for(var i = 0; i < fullScatterArray.length; i++){
         var opt = fullScatterArray[i];
 
-        var li = document.createElement("li");
+        var li = document.createElement("button");
         li.innerHTML = fullScatterArray[i];
         ul.appendChild(li)
+       
+         
      }
-    }
-     
 
+     for(var i = 0; i <= fullScatterArray.length; i++){
+        
+        document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
+
+        document.getElementById("selectedCombos").childNodes[i].onclick = function() {testFunction(this.textContent)};
+    }
+
+
+    
+
+
+    
+} 
+
+function testFunction(text){
+   
+   alert(text)
+}
 
 export {createScatterPlotButtons}
