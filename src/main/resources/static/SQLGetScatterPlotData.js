@@ -27,12 +27,7 @@ function SQLGetScatterData(){
 
 
 async function createScatterPlotButtons(){ 
- 
 
-
-   
-
-    
     var floatingScatterCombos = document.getElementById("selectedCombos");
     const ul = document.getElementById("selectedCombos");
 
@@ -52,27 +47,34 @@ async function createScatterPlotButtons(){
         
         document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
 
-        //document.getElementById("selectedCombos").childNodes[i].onclick = function() {testFunction(this.textContent)};
+        document.getElementById("selectedCombos").childNodes[i].onclick = function() {AJAXScatterButton(this.textContent)};
     }
+
 } 
 
-function testFunction(scatterSelection){
-   
-   alert(scatterSelection)
 
-  
+
+function AJAXScatterButton(scatterSelection){
+    var scatterPoints = "";
+    
     $.ajax({
         headers: { 
             'Accept': 'application/json',
             'Content-Type': 'application/json' 
         },
-        type: 'POST',
+        type: 'GET',
         url:'http://localhost:8080/index6',
+
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
        
-        data: scatterSelection,
-        success: console.log("Scatter selection sent"),
-        error : onerror
+        data: {'scatterSelection': scatterSelection},
+        success: function(response){
+            ScatterPoints = response;
+            }
     });
+    return scatterPoints
+   
 }
 
 

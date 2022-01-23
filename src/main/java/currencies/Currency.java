@@ -27,6 +27,12 @@ public class Currency {
     public Currency (){
     }
 
+    public Currency(String combo, BigDecimal value,  Date time) {
+        this.combo = combo;
+        this.value = value;
+        this.time = time;
+    }
+
     public Currency(Long id, String ticker, String combo, BigDecimal value, String base, Date time) {
         this.id = id;
         this.ticker = ticker;

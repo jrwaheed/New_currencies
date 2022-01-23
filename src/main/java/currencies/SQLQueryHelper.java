@@ -196,44 +196,45 @@ public class SQLQueryHelper {
 
 
 
-/*
+
     @CrossOrigin("http://127.0.0.1:8082/") //Home
     //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
     @RequestMapping(value = "/index6", method = RequestMethod.GET)
-    public String sendSQLScatterSelections() {
+    public String sendSQLScatterSelections(@RequestParam String scatterSelection) {
 
 
-        String sql = "SELECT * FROM {scatterSelection}";
-        ArrayList<Combination> ScatterCombos = new ArrayList<>();
+        String sql = "SELECT combo, value, time FROM " + scatterSelection;
+        ArrayList<Currency> ScatterButtonSelect = new ArrayList<>();
 
-        String JSON_ScatterCombos = null;
+        String JSON_ScatterButtonSelect = null;
         try {
             Connection conn = DriverManager.getConnection(myURL, user, password);
             Statement stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                //Currency currency = new Currency(rs.getString("LegOne"));
-                //ScatterCombos.add(combination);
+                Currency currency = new Currency(rs.getString("combo"),
+                        rs.getBigDecimal("value"),rs.getDate("time"));
+                ScatterButtonSelect.add(currency);
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            JSON_ScatterCombos = objectMapper.writeValueAsString(ScatterCombos);
+            JSON_ScatterButtonSelect = objectMapper.writeValueAsString(ScatterButtonSelect);
 
-            System.out.println(JSON_ScatterCombos);
+            System.out.println(JSON_ScatterButtonSelect);
             rs.close();
             stmt.close();
             conn.close();
 
 
-            System.out.println("Successfully gathered Scatter Data List." + new Date());
+            System.out.println("Successfully gathered Scatter Data points for buttons." + new Date());
         } catch
         (SQLException | JsonProcessingException ex) {
-            System.out.println("Failure to gather Scatter Data.");
+            System.out.println("Failure to gather Scatter Points.");
         }
-        return JSON_ScatterCombos;
+        return JSON_ScatterButtonSelect;
     }
-*/
+
 
     public void getSQLArbitrageValuesTester() {
 
