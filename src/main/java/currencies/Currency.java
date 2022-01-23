@@ -17,7 +17,7 @@ public class Currency {
 
     private BigDecimal value;
     private String base;
-   // private String combo;
+    private String combo;
 
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,10 +27,10 @@ public class Currency {
     public Currency (){
     }
 
-    public Currency(Long id, String ticker, BigDecimal value, String base, Date time) {
+    public Currency(Long id, String ticker, String combo, BigDecimal value, String base, Date time) {
         this.id = id;
         this.ticker = ticker;
-     //   this.combo = combo;
+        this.combo = combo;
         this.value = value;
         this.base = base;
         this.time = time;
@@ -81,11 +81,11 @@ public class Currency {
         this.time = time;
     }
 
-  // public String getCombo() {
-  //      return combo;
- //   }
+   public String getCombo() {
+        return combo;
+    }
 
-  //  public void setCombo(String combo) {
-   //     this.combo = combo;
- //   }
+    public void setCombo(String combo) {
+        this.combo = combo;
+    }
 }

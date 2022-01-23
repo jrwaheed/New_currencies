@@ -196,6 +196,44 @@ public class SQLQueryHelper {
 
 
 
+/*
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
+    //@CrossOrigin("http://127.0.0.1:5500/") //Campus
+
+    @RequestMapping(value = "/index6", method = RequestMethod.GET)
+    public String sendSQLScatterSelections() {
+
+
+        String sql = "SELECT * FROM {scatterSelection}";
+        ArrayList<Combination> ScatterCombos = new ArrayList<>();
+
+        String JSON_ScatterCombos = null;
+        try {
+            Connection conn = DriverManager.getConnection(myURL, user, password);
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                //Currency currency = new Currency(rs.getString("LegOne"));
+                //ScatterCombos.add(combination);
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            JSON_ScatterCombos = objectMapper.writeValueAsString(ScatterCombos);
+
+            System.out.println(JSON_ScatterCombos);
+            rs.close();
+            stmt.close();
+            conn.close();
+
+
+            System.out.println("Successfully gathered Scatter Data List." + new Date());
+        } catch
+        (SQLException | JsonProcessingException ex) {
+            System.out.println("Failure to gather Scatter Data.");
+        }
+        return JSON_ScatterCombos;
+    }
+*/
 
     public void getSQLArbitrageValuesTester() {
 

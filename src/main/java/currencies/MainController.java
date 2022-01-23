@@ -55,10 +55,11 @@ public class MainController {
             String newTicker = (String) currencyMap.keySet().toArray()[i];
             BigDecimal newValue = (BigDecimal) currencyMap.values().toArray()[i];
 
+
             newCurrency.setBase(newBase);
             newCurrency.setTicker(newTicker);
             newCurrency.setValue(newValue);
-    //        newCurrency.setCombo(newTicker + "_"+ newBase);
+            newCurrency.setCombo(newTicker + "_"+ newBase);
 
             System.out.println("The ticker " + newCurrency.getTicker() + " has the value " + newCurrency.getValue() +
                     " for base " + newCurrency.getBase());
