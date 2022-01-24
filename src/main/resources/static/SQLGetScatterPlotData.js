@@ -55,7 +55,7 @@ async function createScatterPlotButtons(){
 
 
 function AJAXScatterButton(scatterSelection){
-    var scatterPoints = "";
+    var scatterPoints ="";
     
     $.ajax({
         headers: { 
@@ -70,12 +70,12 @@ function AJAXScatterButton(scatterSelection){
        
         data: {'scatterSelection': scatterSelection},
         success: function(response){
-            ScatterPoints = response;
+            alert(response[0].value)
+            
             }
+            
     });
-    return scatterPoints
-   
-}
+};
 
 
 export {createScatterPlotButtons}
