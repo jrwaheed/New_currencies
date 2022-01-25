@@ -1,4 +1,4 @@
-//import { SQLBuildOut} from '/src/main/resources/static/script.js';
+import {initiateScatterChart} from '/src/main/resources/static/scatterChart.js';
 
 function SQLGetScatterData(){
     var ScatterCombos = [];
@@ -55,7 +55,11 @@ async function createScatterPlotButtons(){
 
 
 function AJAXScatterButton(scatterSelection){
-    var scatterPoints ="";
+    //var scatterPoints ="";
+    var scatterValueList = [];
+    var scatterComboList = [];
+    var scatterTimeList = [];
+    var fullScatterDataListList = []
     
     $.ajax({
         headers: { 
@@ -70,11 +74,21 @@ function AJAXScatterButton(scatterSelection){
        
         data: {'scatterSelection': scatterSelection},
         success: function(response){
-            alert(response[0].value)
-            
+           
+            //alert(response[0].value)
+            for(var i=0; i < response.length; i++){
+                scatterValueList.push(response[i].value)
+                scatterComboList.push(response[i].combo)
+                scatterTimeList.push(response[i].time)
             }
+        }
             
     });
+    fullScatterDataListList.push(scatterComboList)
+    fullScatterDataListList.push(scatterValueList)
+    fullScatterDataListList.push(scatterTimeList)
+
+    initiateScatterChart(scatterComboList, scatterValueList)
 };
 
 

@@ -1,17 +1,17 @@
 
 
 
-function initiateScatterChart(chartComboList, chartDeltaList){
+function initiateScatterChart(scatterComboList, scatterValueList){
     const grapharea = document.getElementById('ScatterChart').getContext('2d');
 
     let scatterChart = new Chart(grapharea, {
         type: 'scatter',
         data: {
-            labels: chartComboList,
+            labels: scatterComboList,
 
             datasets: [{
                 label: 'Time Series',
-                data: chartDeltaList,
+                data: scatterValueList,
 
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -42,11 +42,13 @@ function initiateScatterChart(chartComboList, chartDeltaList){
     });
     return scatterChart
 }
-//window.initiateChart = initiateChart;
+//window.initiateScatterChart = initiateScatterChart;
 
 
 function buildScatterChart(){
    
 }
 
+window.initiateScatterChart = initiateScatterChart;
+export {initiateScatterChart}
 
