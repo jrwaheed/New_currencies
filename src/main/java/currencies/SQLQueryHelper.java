@@ -30,9 +30,9 @@ public class SQLQueryHelper {
     private static final String user = "root";
     private static final String password = "TheHulk1*";
 */
-    private static final String myURL = "jdbc:mysql://192.168.56.103:3306/Exchange";
-    private static final String user = "jamal";
-    private static final String password = "Ubuntu";
+private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
+    private static final String user = "root";
+    private static final String password = "TheHulk1*";
 
 
 
@@ -114,8 +114,8 @@ public class SQLQueryHelper {
         }
     }
 
-    //@CrossOrigin("http://127.0.0.1:8082/") //Home
-    @CrossOrigin("http://127.0.0.1:5500/") //Campus
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
+    //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
     @RequestMapping(value = "/index4", method = RequestMethod.GET)
     public String getSQLArbitrageValues() {
@@ -157,8 +157,8 @@ public class SQLQueryHelper {
     }
 
 
-    //@CrossOrigin("http://127.0.0.1:8082/") //Home
-    @CrossOrigin("http://127.0.0.1:5500/") //Campus
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
+    //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
     @RequestMapping(value = "/index5", method = RequestMethod.GET)
     public String getSQLScatterValues() {
@@ -197,8 +197,8 @@ public class SQLQueryHelper {
 
 
 
-    //@CrossOrigin("http://127.0.0.1:8082/") //Home
-    @CrossOrigin("http://127.0.0.1:5500/") //Campus
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
+    //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
     @RequestMapping(value = "/index6", method = RequestMethod.GET)
     public String sendSQLScatterSelections(@RequestParam String scatterSelection) {

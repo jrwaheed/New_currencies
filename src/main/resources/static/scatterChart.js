@@ -10,7 +10,7 @@ function initiateScatterChart(scatterLabelsList, scatterComboList, objectList){
             datasets: [{
                 labels: scatterLabelsList,
                 data: objectList,
-                //data: [{x: 54, y: 2}, {x: 61, y:3}, {x: 74, y: 4}],
+                //data: [{x: 77000, y: 2.765}],
                
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'

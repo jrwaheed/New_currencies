@@ -104,8 +104,8 @@ async function prepForScatter(scatterSelection){
        
         //const scatterXY = new Object("x: " + scatterValueList[i] + ", y: " + scatterTimeList[i]);
         const scatterXY = new Object();
-        scatterXY.X = scatterTimeList[i];
-        scatterXY.Y = scatterValueList[i];
+        scatterXY.x = scatterTimeList[i];
+        scatterXY.y = scatterValueList[i];
         objectList.push(scatterXY)
         alert(scatterXY)
         
