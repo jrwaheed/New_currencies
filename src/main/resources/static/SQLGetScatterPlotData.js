@@ -47,7 +47,7 @@ async function createScatterPlotButtons(){
         
         document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
 
-        document.getElementById("selectedCombos").childNodes[i].onclick = function() {AJAXScatterButton(this.textContent)};
+        document.getElementById("selectedCombos").childNodes[i].onclick = function() {prepForScatter(this.textContent)};
     }
 
 } 
@@ -55,11 +55,8 @@ async function createScatterPlotButtons(){
 
 
 function AJAXScatterButton(scatterSelection){
-    //var scatterPoints ="";
-    var scatterValueList = [];
-    var scatterComboList = [];
-    var scatterTimeList = [];
-    var fullScatterDataListList = []
+    var result = [];
+  
     
     $.ajax({
         headers: { 
@@ -71,25 +68,54 @@ function AJAXScatterButton(scatterSelection){
 
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-       
+        async: false,
         data: {'scatterSelection': scatterSelection},
-        success: function(response){
-           
-            //alert(response[0].value)
-            for(var i=0; i < response.length; i++){
-                scatterValueList.push(response[i].value)
-                scatterComboList.push(response[i].combo)
-                scatterTimeList.push(response[i].time)
-            }
+        success: function(response){   
+            result = response;   
         }
-            
-    });
-    fullScatterDataListList.push(scatterComboList)
-    fullScatterDataListList.push(scatterValueList)
-    fullScatterDataListList.push(scatterTimeList)
-
-    initiateScatterChart(scatterComboList, scatterValueList)
+    });   
+    return result
 };
+
+    
+async function prepForScatter(scatterSelection){
+
+    var scatterValueList = [];
+    var scatterComboList = [];
+    var scatterTimeList = [];
+    var objectList = [];
+    var scatterLabelsList = []
+    
+    const AJAXScatterButtonResponse = await AJAXScatterButton(scatterSelection); 
+    
+    for(var i=0; i < AJAXScatterButtonResponse.length; i++){
+        scatterValueList.push(AJAXScatterButtonResponse[i].value)
+        scatterComboList.push(AJAXScatterButtonResponse[i].combo)
+        scatterLabelsList.push(AJAXScatterButtonResponse[i].time)
+
+        var tempTime = (AJAXScatterButtonResponse[i].time)
+        const [hours, minutes, seconds] = tempTime.split(':');
+        const totalSeconds = (+hours) * 60 * 60 + (+minutes) * 60 + (+seconds);
+
+        scatterTimeList.push(totalSeconds)
+    }
+
+    for(var i = 0; i < scatterComboList.length; i++){
+       
+        //const scatterXY = new Object("x: " + scatterValueList[i] + ", y: " + scatterTimeList[i]);
+        const scatterXY = new Object();
+        scatterXY.X = scatterTimeList[i];
+        scatterXY.Y = scatterValueList[i];
+        objectList.push(scatterXY)
+        alert(scatterXY)
+        
+    }
+    initiateScatterChart(scatterLabelsList, scatterComboList, objectList)
+}
+
+
+    
+
 
 
 export {createScatterPlotButtons}
