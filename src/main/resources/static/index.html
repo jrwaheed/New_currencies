@@ -13,6 +13,7 @@
     <script type="module" src="SQLGetArbitrage.js"></script>  
     <script type="module" src = "radarChart.js"></script>
     <script type="module" src="SQLGetScatterPlotData.js"></script>
+    <script type="module" src="SQLFreshStart.js"></script>
   
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
@@ -33,10 +34,10 @@
    
     <div class="row">
         <div class="col-6">
-            <button type = "button", id = "baseButton" class="btn btn-success", onclick="bigRun()"> 
+            <button type = "button", id = "baseButton" class="btn btn-success", onclick = "bigRun()"> 
             Big Initial Run </button>
         
-            <button type="button" class="btn btn-success" onclick="buildChart()"> 
+            <button type="button" class="btn btn-success" onclick = "buildChart()"> 
             Build Arb Chart </button>
         
 
@@ -45,7 +46,7 @@
             Set Time Interval </button>
         
      
-            <button type="button" class="btn btn-success" > 
+            <button type="button" class="btn btn-success" onclick = "SQLFreshStart()"> 
             Reset All </button>
         </div>
     </div>
