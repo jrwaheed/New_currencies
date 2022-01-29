@@ -7,37 +7,57 @@ function initiateScatterChart(scatterLabelsList, scatterComboList, objectList){
     let scatterChart = new Chart(grapharea, {
         type: 'scatter',
         data: {
+            labels: scatterComboList,
             datasets: [{
-                labels: scatterLabelsList[0],
+                label: 'Currency Pairs',
+                
                 data: objectList,
                 pointRadius : 10,
                 pointHoverRadius : 15,
-               
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                  
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)'
-                
-                ],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)'],
                 borderWidth: 1
             }]
-    },
-    options: {  
-       
-        scales: {
-            x: {
-                ticks: {
-                    callback: function( value){
-                        return new Date(value).toISOString().substring(11,19)
-                    } },
-                    
-                
-            }
-        }
+        },
+        options: {  
+            scales: {
+                x: {
+                    ticks: {
+                        callback: function( value){
+                            return new Date(value).toISOString().substring(11,19)
+                        } 
+                    }
+                }
+            },
+            plugins: {
+                tooltip:{
+                    model: 'label',
+                    callbacks:{
+                        label: function(tooltipItem, data){
+                         
+                            
+                            let scatterXY = scatterChart.data.datasets[tooltipItem.datasetIndex].data[tooltipItem.dataIndex];
+
+                            let selectionEpochTime = scatterXY.x;
+                            let selectionTime = new Date(selectionEpochTime).toISOString().substring(11,19)
+
+                            return scatterXY.y + ' : ' + selectionTime;
+                        }
+                    }
+                },
+                legend:{
+                    display: true,
+                    labels:{
+                        //scatterChart.data.datasets[tooltipItem.datasetIndex].labels
+
+                    }
+                    }
+
+            },
     }
-    });
+    }); 
+
+
 }
 
 
