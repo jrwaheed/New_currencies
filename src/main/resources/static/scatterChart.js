@@ -8,9 +8,10 @@ function initiateScatterChart(scatterLabelsList, scatterComboList, objectList){
         type: 'scatter',
         data: {
             datasets: [{
-                labels: scatterLabelsList,
+                labels: scatterLabelsList[0],
                 data: objectList,
-                //data: [{x: 77000, y: 2.765}],
+                pointRadius : 10,
+                pointHoverRadius : 15,
                
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'
@@ -23,16 +24,27 @@ function initiateScatterChart(scatterLabelsList, scatterComboList, objectList){
                 borderWidth: 1
             }]
     },
-   
+    options: {  
+       
+        scales: {
+            x: {
+                ticks: {
+                    callback: function( value){
+                        return new Date(value).toISOString().substring(11,19)
+                    } },
+                    
+                
+            }
+        }
+    }
     });
-    return scatterChart
 }
-//window.initiateScatterChart = initiateScatterChart;
 
 
-function buildScatterChart(){
-   
-}
+
+function secondsToTime(epoch) {
+    return new Date(epoch).toISOString();
+  }
 
 window.initiateScatterChart = initiateScatterChart;
 export {initiateScatterChart}

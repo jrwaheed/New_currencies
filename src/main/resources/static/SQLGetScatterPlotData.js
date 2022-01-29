@@ -72,6 +72,7 @@ function AJAXScatterButton(scatterSelection){
         data: {'scatterSelection': scatterSelection},
         success: function(response){   
             result = response;   
+            alert("scatter")
         }
     });   
     return result
@@ -94,10 +95,11 @@ async function prepForScatter(scatterSelection){
         scatterLabelsList.push(AJAXScatterButtonResponse[i].time)
 
         var tempTime = (AJAXScatterButtonResponse[i].time)
-        const [hours, minutes, seconds] = tempTime.split(':');
-        const totalSeconds = (+hours) * 60 * 60 + (+minutes) * 60 + (+seconds);
+        //const [hours, minutes, seconds] = tempTime.split(':');
+        // const totalSeconds = (+hours) * 60 * 60 + (+minutes) * 60 + (+seconds);
 
-        scatterTimeList.push(totalSeconds)
+        //scatterTimeList.push(totalSeconds)
+        scatterTimeList.push(tempTime)
     }
 
     for(var i = 0; i < scatterComboList.length; i++){
@@ -107,7 +109,7 @@ async function prepForScatter(scatterSelection){
         scatterXY.x = scatterTimeList[i];
         scatterXY.y = scatterValueList[i];
         objectList.push(scatterXY)
-        alert(scatterXY)
+        
         
     }
     initiateScatterChart(scatterLabelsList, scatterComboList, objectList)

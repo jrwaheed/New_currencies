@@ -10,6 +10,8 @@ function SQLFreshStart(){
         success: console.log("SQL freshStart executed"),
         error : onerror
     })
+
+    window.location.reload();
 }
 
 window.SQLFreshStart = SQLFreshStart;

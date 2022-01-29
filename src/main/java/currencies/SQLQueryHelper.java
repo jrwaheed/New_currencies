@@ -216,7 +216,7 @@ private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Currency currency = new Currency(rs.getString("combo"),
-                        rs.getBigDecimal("value"), rs.getTime("time"));
+                        rs.getBigDecimal("value"), rs.getTimestamp("time"));
 
                 ScatterButtonSelect.add(currency);
             }
