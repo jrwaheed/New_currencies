@@ -46,7 +46,7 @@ async function createScatterPlotButtons(){
      for(var i = 0; i <= fullScatterArray.length; i++){
         
         document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
-
+      
         document.getElementById("selectedCombos").childNodes[i].onclick = function() {prepForScatter(this.textContent)};
     }
 

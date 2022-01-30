@@ -7,9 +7,9 @@ function initiateScatterChart(scatterLabelsList, scatterComboList, objectList){
     let scatterChart = new Chart(grapharea, {
         type: 'scatter',
         data: {
-            labels: scatterComboList,
+            //labels: scatterComboList,
             datasets: [{
-                label: 'Currency Pairs',
+                label: scatterComboList[0],
                 
                 data: objectList,
                 pointRadius : 10,
@@ -47,17 +47,10 @@ function initiateScatterChart(scatterLabelsList, scatterComboList, objectList){
                 },
                 legend:{
                     display: true,
-                    labels:{
-                        //scatterChart.data.datasets[tooltipItem.datasetIndex].labels
-
+                        }
                     }
-                    }
-
-            },
-    }
+                }
     }); 
-
-
 }
 
 
