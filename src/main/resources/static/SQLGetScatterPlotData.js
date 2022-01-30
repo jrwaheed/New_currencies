@@ -1,4 +1,4 @@
-import {initiateScatterChart} from '/src/main/resources/static/scatterChart.js';
+import {startScatterChart} from '/src/main/resources/static/scatterChart.js';
 
 function SQLGetScatterData(){
     var ScatterCombos = [];
@@ -34,16 +34,28 @@ async function createScatterPlotButtons(){
     var ScatterCombos = await SQLGetScatterData();
 
     let fullScatterArray = ScatterCombos.map(element => element.legOne);
+    let correctedFullScatterArray = ScatterCombos.map(element => element.legOne);
 
     for(var i = 0; i < fullScatterArray.length; i++){
         var opt = fullScatterArray[i];
 
         var li = document.createElement("button");
-        li.innerHTML = fullScatterArray[i];
-        ul.appendChild(li)    
+
+        if(window.ul.hasChildNode[i] == null) {
+            li.innerHTML = fullScatterArray[i];
+            ul.appendChild(li)    
+        } else {
+            var duplicate = fullScatterArray[i];
+            var duplicateIndex = fullScatterArray.indexOf(duplicate);
+            correctedFullScatterArray.splice(duplicateIndex,1)
+
+        }
+
+
+        
      }
 
-     for(var i = 0; i <= fullScatterArray.length; i++){
+     for(var i = 0; i <= correctedFullScatterArray.length; i++){
         
         document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
       
@@ -72,7 +84,7 @@ function AJAXScatterButton(scatterSelection){
         data: {'scatterSelection': scatterSelection},
         success: function(response){   
             result = response;   
-            alert("scatter")
+            console.log("ajax for scatter worked")
         }
     });   
     return result
@@ -104,7 +116,7 @@ async function prepForScatter(scatterSelection){
 
     for(var i = 0; i < scatterComboList.length; i++){
        
-        //const scatterXY = new Object("x: " + scatterValueList[i] + ", y: " + scatterTimeList[i]);
+        
         const scatterXY = new Object();
         scatterXY.x = scatterTimeList[i];
         scatterXY.y = scatterValueList[i];
@@ -112,7 +124,7 @@ async function prepForScatter(scatterSelection){
         
         
     }
-    initiateScatterChart(scatterLabelsList, scatterComboList, objectList)
+    startScatterChart(scatterLabelsList, scatterComboList, objectList)
 }
 
 
@@ -121,4 +133,6 @@ async function prepForScatter(scatterSelection){
 
 
 export {createScatterPlotButtons}
+
+
 window.createScatterPlotButtons = createScatterPlotButtons;
