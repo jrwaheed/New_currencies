@@ -24,7 +24,18 @@ function SQLGetScatterData(){
     return ScatterCombos;
 };
 
+function clearOldScatterButtons(){
+    const ul = document.getElementById("selectedCombos");
+    if(!ul.hasChildNodes()){
+        createScatterPlotButtons()
 
+    } else {
+        
+        ul.remove();
+        const ul = document.createElement("selectedCombos");
+        createScatterPlotButtons()
+    }
+}
 
 async function createScatterPlotButtons(){ 
 
@@ -41,18 +52,8 @@ async function createScatterPlotButtons(){
 
         var li = document.createElement("button");
 
-        if(window.ul.hasChildNode[i] == null) {
             li.innerHTML = fullScatterArray[i];
-            ul.appendChild(li)    
-        } else {
-            var duplicate = fullScatterArray[i];
-            var duplicateIndex = fullScatterArray.indexOf(duplicate);
-            correctedFullScatterArray.splice(duplicateIndex,1)
-
-        }
-
-
-        
+            ul.appendChild(li)        
      }
 
      for(var i = 0; i <= correctedFullScatterArray.length; i++){
@@ -136,3 +137,4 @@ export {createScatterPlotButtons}
 
 
 window.createScatterPlotButtons = createScatterPlotButtons;
+window.clearOldScatterButtons = clearOldScatterButtons;

@@ -141,7 +141,7 @@ function SQLBuildOut(){
         success: console.log("SQL buildOut completed"),
         error : onerror
     })
-    setTimeout(function(){ createScatterPlotButtons(); }, 2500);
+    setTimeout(function(){ clearOldScatterButtons(); }, 2500);
 }
 
 function SQLFindArbitrage(){
