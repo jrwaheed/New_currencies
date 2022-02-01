@@ -24,46 +24,42 @@ function SQLGetScatterData(){
     return ScatterCombos;
 };
 
-function clearOldScatterButtons(){
-    const ul = document.getElementById("selectedCombos");
-    if(!ul.hasChildNodes()){
-        createScatterPlotButtons()
-
-    } else {
-        
-        ul.remove();
-        const ul = document.createElement("selectedCombos");
-        createScatterPlotButtons()
-    }
-}
-
 async function createScatterPlotButtons(){ 
 
     var floatingScatterCombos = document.getElementById("selectedCombos");
-    const ul = document.getElementById("selectedCombos");
-
+    var ul = document.getElementById("selectedCombos");
+    
     var ScatterCombos = await SQLGetScatterData();
 
     let fullScatterArray = ScatterCombos.map(element => element.legOne);
-    let correctedFullScatterArray = ScatterCombos.map(element => element.legOne);
+  
 
+    if(ul.childElementCount > 0){
+        ul.innerHTML ='';
+        assignNode(ul, fullScatterArray)
+    } else {
+        assignNode(ul, fullScatterArray)
+    }
+}
+
+
+function assignNode(ul, fullScatterArray){
     for(var i = 0; i < fullScatterArray.length; i++){
         var opt = fullScatterArray[i];
 
         var li = document.createElement("button");
-
-            li.innerHTML = fullScatterArray[i];
-            ul.appendChild(li)        
+        li.innerHTML = fullScatterArray[i];
+        ul.appendChild(li)         
      }
 
-     for(var i = 0; i <= correctedFullScatterArray.length; i++){
+     for(var i = 0; i <= fullScatterArray.length; i++){
         
         document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
       
         document.getElementById("selectedCombos").childNodes[i].onclick = function() {prepForScatter(this.textContent)};
     }
+}
 
-} 
 
 
 
@@ -137,4 +133,4 @@ export {createScatterPlotButtons}
 
 
 window.createScatterPlotButtons = createScatterPlotButtons;
-window.clearOldScatterButtons = clearOldScatterButtons;
+//window.clearOldScatterButtons = clearOldScatterButtons;
