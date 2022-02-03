@@ -96,4 +96,12 @@ margin-bottom: 10px !important
 
 .shadow p-3 mb-5 bg-white rounded {
     background-color: #152935 !important
-}
+};
+
+.btn-outline-secondary-drop{
+    color: #152935 !important;
+    background-color: transparent;
+    background-image: none;
+    border-color: #152935 !important;
+    margin-bottom: 10px !important
+    };

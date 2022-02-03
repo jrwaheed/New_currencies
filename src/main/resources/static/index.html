@@ -18,6 +18,9 @@
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"> </script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
 
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -26,6 +29,7 @@
 </head>
 
  <body onload="javascript:RIPIT()" style="padding-top: 20px;"> 
+
    
     <div class = "sticky-top">
         <div class="row" style=" background-color: #152935">  
@@ -40,9 +44,23 @@
                 <button type="button" class="btn btn-outline-primary" onclick = "buildChart()"> 
                 Build Arb Chart </button>
             
-                <button type="button" class="btn btn-outline-primary" > 
-                Set Time Interval </button>
-            
+                <div class="dropdown btn-group">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                 Time Interval
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">15 seconds</a></li>
+                  <li><a class="dropdown-item" href="#">30 seconds</a></li>
+                  <li><a class="dropdown-item" href="#">1 minute </a></li>
+                  <li><a class="dropdown-item" href="#">2 minutes</a></li>
+                  <li><a class="dropdown-item" href="#">5 minutes</a></li>
+               
+                  </ul>
+                </div>
+              
+
+
+
                 <button type="button" class="btn btn-outline-primary" onclick = "SQLFreshStart()"> 
                 Reset All </button>
             </div>
@@ -51,6 +69,9 @@
     
 
 
+
+
+      
 
 <div class = "container-12">
      <div class ="row"> 
