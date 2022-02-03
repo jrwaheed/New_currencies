@@ -16,9 +16,6 @@ function grabTargetCurrencies() {
         } else { }
 
     }
- 
-
-
     return targetArray;
 };
 
@@ -159,10 +156,39 @@ function SQLFindArbitrage(){
     })
 }
 
+////////////////////////////////////////////////////////////////////////
 
+function updateDataToJava(jsonResult){
+    $.ajax({
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        type: 'POST',
+        url:'http://localhost:8080/index8',
+       
+        data: jsonResult,
+        success: console.log("Target currencies sent"),
+        error : onerror
+    });
+}
+
+const initiateButtonToggle = document.getElementById("baseButton");
+
+
+initiateButtonToggle.addEventListener("click", clickInitiateButtonEvent);
+
+function clickInitiateButtonEvent(){
+    if (document.getElementById("selectedCombos").hasChildNodes){
+        document.getElementById("baseButton").disabled = true;
+    } else {
+        document.getElementById("baseButton").disabled = true;
+    }
+}
 
 
 //export {SQLBuildOut}
 window.bigRun = bigRun;
 window.SQLBuildOut = SQLBuildOut;
-window.SQLFindArbitrage = SQLFindArbitrage
+window.SQLFindArbitrage = SQLFindArbitrage;
+window.updatedDataToJava = updateDataToJava;
