@@ -49,12 +49,12 @@
                   <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                  Time Interval
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">15 seconds</a></li>
-                  <li><a class="dropdown-item" href="#">30 seconds</a></li>
-                  <li><a class="dropdown-item" href="#">1 minute </a></li>
-                  <li><a class="dropdown-item" href="#">2 minutes</a></li>
-                  <li><a class="dropdown-item" href="#">5 minutes</a></li>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1", onchange="universalTimer(this.value)">
+                  <li id = "UT15" value="15"><a class="dropdown-item" href="#">15 seconds</a></li >
+                  <li id = "UT30" value="30"><a class="dropdown-item" href="#">30 seconds</a></li >
+                  <li id = "UT60" value="60"><a class="dropdown-item" href="#">1 minute </a></li >
+                  <li id = "UT120" value="120"><a class="dropdown-item" href="#">2 minutes</a></li>
+                  <li id = "UT300" value="300"><a class="dropdown-item" href="#">5 minutes</a></li>
                
                   </ul>
                 </div>

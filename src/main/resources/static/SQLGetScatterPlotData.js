@@ -133,4 +133,4 @@ export {createScatterPlotButtons}
 
 
 window.createScatterPlotButtons = createScatterPlotButtons;
-//window.clearOldScatterButtons = clearOldScatterButtons;
+//window.prepforScatter = prepForScatter;
