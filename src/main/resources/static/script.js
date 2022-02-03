@@ -1,5 +1,6 @@
 import {createScatterPlotButtons} from '/src/main/resources/static/SQLGetScatterPlotData.js';
 
+
 function grabBaseCurrency () {
     var baseCurrencySelection = document.getElementById("userBaseInput").value;
     return baseCurrencySelection
@@ -55,7 +56,7 @@ function makeRollingMap (element, allCurrencyArray, workingAPIMap){
         allCurrencyArray.splice(myIndex, 1)
     }
 
-    console.log(allCurrencyArray)
+    console.log("Roling map" + allCurrencyArray)
     
     rollingMap.set(element, 1.00)
 
@@ -73,7 +74,7 @@ function mapToJSON(rollingMap) {
     })
 
     let JSONtargets = JSON.stringify(jsonObject);  
-        console.log(JSONtargets)
+        console.log( "JSON targets:" + JSONtargets)
     return JSONtargets;  
 }
 
@@ -98,12 +99,13 @@ async function primaryFunction(element) {
         var rollingMap  =  makeRollingMap(element, getAllCurrencies(), workingAPIMap)
         var jsonResult = mapToJSON(rollingMap)
         sendDataToJava(jsonResult);
-        
+        return jsonResult;
 };    
 
 
 function getAllCurrencies() {
     let allCurrencyArray = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency())
+    
     return allCurrencyArray;
 }
 
@@ -157,6 +159,32 @@ function SQLFindArbitrage(){
 }
 
 ////////////////////////////////////////////////////////////////////////
+var updatedGlobalCurrencyList = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency());
+
+
+function getUpdatedCurrencyList(){
+    var updatedCurrencyList =[];
+    updatedCurrencyList = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency());
+    return updatedCurrencyList;
+}
+
+function loopUpdate(){
+    for (const element of getUpdatedCurrencyList()){
+        secondaryUpdate(element);
+}
+
+
+
+async function secondaryUpdate(element){
+        const delay = async (ms = 750) => new Promise(resolve => setTimeout(resolve, ms));
+        const workingAPIMap =  await fullAPIFetch(element); 
+        
+        var rollingMap  =  makeRollingMap(element, getUpdatedCurrencyList(), workingAPIMap)
+        var jsonResult = mapToJSON(rollingMap)
+        updateDataToJava(jsonResult);
+        delay(750);
+    };  
+}
 
 function updateDataToJava(jsonResult){
     $.ajax({
@@ -166,9 +194,9 @@ function updateDataToJava(jsonResult){
         },
         type: 'POST',
         url:'http://localhost:8080/index8',
-       
+        
         data: jsonResult,
-        success: console.log("Target currencies sent"),
+        success: console.log("Request for currency updates sent"),
         error : onerror
     });
 }
@@ -191,4 +219,4 @@ function clickInitiateButtonEvent(){
 window.bigRun = bigRun;
 window.SQLBuildOut = SQLBuildOut;
 window.SQLFindArbitrage = SQLFindArbitrage;
-window.updatedDataToJava = updateDataToJava;
+window.loopUpdate = loopUpdate;

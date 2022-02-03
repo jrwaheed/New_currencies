@@ -94,4 +94,7 @@ public class Currency {
     public void setCombo(String combo) {
         this.combo = combo;
     }
+
+    public void setTime(long epochSecond) {
+    }
 }

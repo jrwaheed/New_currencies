@@ -1,5 +1,7 @@
 package currencies;
 
+import currencies.Currency;
+import currencies.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.math.BigDecimal;
+
+import java.time.Instant;
+import java.util.Date;
 
 
 @Controller
 @CrossOrigin
-public class MainController {
+public class UpdateController {
 
     /*
     Campus
@@ -37,35 +40,37 @@ public class MainController {
     private static final String user = "root";
     private static final String password = "TheHulk1*";
 
-    private final Logger log = LoggerFactory.getLogger(MainController.class);
+    private final Logger log = LoggerFactory.getLogger(currencies.MainController.class);
 
     public final Repository repository;
 
 
-    public MainController(Repository repository) {
+
+    public UpdateController(Repository repository) {
         this.repository = repository;
     }
 
     @Autowired
-    private MainController mainController;
+    private currencies.UpdateController updateController;
 
     /**
      * Retrieves the target map created in javascript.
      * @param
      * @return
      */
-    @PostMapping("/index1")
-    public ResponseEntity<Map<String,BigDecimal>> retrieveCurrency (@RequestBody Map<String,BigDecimal> currencyMap) throws SQLException {
-        log.info("REST request to retrieve target currency: {}", currencyMap.toString());
 
-        createCurrencyFromMap(currencyMap);
+
+    @PostMapping("/index8")
+    public ResponseEntity<Map<String,BigDecimal>> retrieveCurrencyUpdate (@RequestBody Map<String,BigDecimal> currencyMap) throws SQLException {
+        log.info("REST request to update all currencies {}", currencyMap.toString());
+
+        updateCurrencyFromMap(currencyMap);
 
         return new ResponseEntity<>(currencyMap, HttpStatus.CREATED);
     }
 
 
-
-    private void createCurrencyFromMap (Map<String,BigDecimal> currencyMap) throws SQLException {
+    private void updateCurrencyFromMap (Map<String,BigDecimal> currencyMap) throws SQLException {
         for (int i = 1; i < currencyMap.size(); i++) {
 
             Currency newCurrency = new Currency();
@@ -79,12 +84,26 @@ public class MainController {
             newCurrency.setTicker(newTicker);
             newCurrency.setValue(newValue);
             newCurrency.setCombo(newTicker + "_"+ newBase);
+            newCurrency.setTime(Timestamp.valueOf(LocalDateTime.now()));
+            //newCurrency.setTime(Instant.now().getEpochSecond());
 
-            System.out.println("The ticker " + newCurrency.getTicker() + " has the value " + newCurrency.getValue() +
-                    " for base " + newCurrency.getBase());
-            repository.save(newCurrency);
+            //repository.save(newCurrency);
+
+            String sql = "INSERT INTO " + newCurrency.getCombo() + " (base, ticker, time, value, combo) " +
+                    "VALUES ('" + newCurrency.getBase() + "', '" + newCurrency.getTicker() + "', '" +newCurrency.getTime() +
+                    "', " + newCurrency.getValue() +  ", '" +newCurrency.getCombo() + "');";
+
+            try (
+                    Connection conn = DriverManager.getConnection(myURL, user, password);
+                    CallableStatement stmt = conn.prepareCall(sql);)
+            {
+                stmt.execute();
+                stmt.close();
+                System.out.println("The currency combo " + newCurrency.getCombo() + " has been updated in MYSQL");;
+            } catch
+            (SQLException ex) {
+                System.out.println("Failure to update SQL");
+            }
         }
     }
-
-
 }
