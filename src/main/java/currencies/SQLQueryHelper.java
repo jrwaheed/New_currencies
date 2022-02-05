@@ -259,6 +259,42 @@ private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
     }
 
 
+
+    @CrossOrigin("http://127.0.0.1:8082/") //Home
+    //@CrossOrigin("http://127.0.0.1:5500/") //Campus
+
+    @RequestMapping(value = "/index9", method = RequestMethod.GET)
+    public ArrayList<String> getMaxArbitrage() {
+
+
+        String sql = "Call findMaxArbitrage();";
+        ArrayList<String> maxArbitrageList = new ArrayList<>();
+
+        try {
+            Connection conn = DriverManager.getConnection(myURL, user, password);
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Combination combination = new Combination();
+                combination.setFullCombo(rs.getString("FullCombo"));
+               maxArbitrageList.add(combination.getFullCombo());
+                System.out.println(combination.getFullCombo());
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+
+
+            System.out.println("Successfully gathered Scatter Max deltas for Arbitrage." + new Date());
+        } catch
+        (SQLException ex) {
+            System.out.println("Failure to gather Max detlas.");
+        }
+        return maxArbitrageList;
+    }
+
     public void getSQLArbitrageValuesTester() {
 
         String sql = "SELECT * FROM Triangle;";

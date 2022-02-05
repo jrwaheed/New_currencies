@@ -43,6 +43,8 @@ async function createScatterPlotButtons(){
 }
 
 
+
+
 function assignNode(ul, fullScatterArray){
     for(var i = 0; i < fullScatterArray.length; i++){
         var opt = fullScatterArray[i];
@@ -56,9 +58,13 @@ function assignNode(ul, fullScatterArray){
         
         document.getElementById("selectedCombos").childNodes[i].className = "btn btn-outline-secondary";
       
-        document.getElementById("selectedCombos").childNodes[i].onclick = function() {prepForScatter(this.textContent)};
+        document.getElementById("selectedCombos").childNodes[i].onclick = function() {getScatterNode(this.textContent)};
+        
+
     }
 }
+
+
 
 
 
@@ -86,6 +92,13 @@ function AJAXScatterButton(scatterSelection){
     });   
     return result
 };
+
+
+let selectedNodeValue = "";
+function getScatterNode(scatterSelection){
+    selectedNodeValue = scatterSelection
+    prepForScatter(scatterSelection)
+}
 
     
 async function prepForScatter(scatterSelection){
@@ -130,7 +143,11 @@ async function prepForScatter(scatterSelection){
 
 
 export {createScatterPlotButtons}
+export{prepForScatter}
+export{selectedNodeValue}
+
 
 
 window.createScatterPlotButtons = createScatterPlotButtons;
-//window.prepforScatter = prepForScatter;
+window.prepForScatter = prepForScatter;
+window.selectedNodeValue = selectedNodeValue

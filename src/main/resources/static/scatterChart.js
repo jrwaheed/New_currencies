@@ -15,6 +15,10 @@ function startScatterChart(scatterLabelsList, scatterComboList, objectList){
     }
 }
 
+function renderScatter (){
+    scatterChart.render();
+}
+
 
 function destroy(){
     scatterChart.destroy();
@@ -27,9 +31,9 @@ function initiateChart(scatterLabelsList, scatterComboList, objectList){
         datasets: [{
             label: scatterComboList[0], 
             data: objectList,
-            pointRadius : 10,
-            pointHoverRadius : 15,
-            backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+            pointRadius : 3,
+            pointHoverRadius : 5,
+            backgroundColor: ['#e4a576'],
             borderColor: ['rgba(255, 99, 132, 1)'],
             borderWidth: 1
         }]
@@ -92,4 +96,5 @@ function secondsToTime(epoch) {
   }
 
 window.startScatterChart = startScatterChart;
+window.renderScatter = renderScatter;
 export {startScatterChart};

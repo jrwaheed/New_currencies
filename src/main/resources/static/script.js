@@ -1,5 +1,6 @@
 import {createScatterPlotButtons} from '/src/main/resources/static/SQLGetScatterPlotData.js';
-
+import {prepForScatter} from '/src/main/resources/static/SQLGetScatterPlotData.js';
+import {selectedNodeValue} from '/src/main/resources/static/SQLGetScatterPlotData.js';
 
 function grabBaseCurrency () {
     var baseCurrencySelection = document.getElementById("userBaseInput").value;
@@ -158,8 +159,18 @@ function SQLFindArbitrage(){
     })
 }
 
-////////////////////////////////////////////////////////////////////////
-var updatedGlobalCurrencyList = makeBasePlusTargetsArray(grabTargetCurrencies(), grabBaseCurrency());
+////////////////////////////////////////////      UPDATE SECTION    ///////////////////////////////////////////////////////////
+
+function universalTimer(){
+    loopUpdate();
+    prepForScatter(selectedNodeValue);
+    
+    destroyRadar();
+    setTimeout(SQLFindArbitrage(), 250);
+    setTimeout(buildChart(), 500);
+    getMaxDeltas();
+ 
+}
 
 
 function getUpdatedCurrencyList(){
@@ -171,9 +182,8 @@ function getUpdatedCurrencyList(){
 function loopUpdate(){
     for (const element of getUpdatedCurrencyList()){
         secondaryUpdate(element);
+    }
 }
-
-
 
 async function secondaryUpdate(element){
         const delay = async (ms = 750) => new Promise(resolve => setTimeout(resolve, ms));
@@ -184,7 +194,7 @@ async function secondaryUpdate(element){
         updateDataToJava(jsonResult);
         delay(750);
     };  
-}
+
 
 function updateDataToJava(jsonResult){
     $.ajax({
@@ -215,10 +225,38 @@ function clickInitiateButtonEvent(){
 }
 
 
+function getMaxDeltas(){
+    $.ajax({
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        type: 'GET',
+        url:'http://localhost:8080/index9',
+        
+        success: function(response){   
+            var  result = response;   
+            console.log("Successfully gathered max deltas")
+        }
+    });   
+        error : console.log("Max delta capture failed")
+    return result 
+}
+
+window.loopUpdate = loopUpdate;
+window.universalTimer = universalTimer;
+
+
+
 
 
 //export {SQLBuildOut}
 window.bigRun = bigRun;
 window.SQLBuildOut = SQLBuildOut;
 window.SQLFindArbitrage = SQLFindArbitrage;
-window.loopUpdate = loopUpdate;
+window.makeBasePlusTargetsArray = makeBasePlusTargetsArray;
+window.grabTargetCurrencies = grabTargetCurrencies;
+window.grabBaseCurrency = grabBaseCurrency;
+window.fullAPIFetch = fullAPIFetch;
+window.makeRollingMap = makeRollingMap;
+window.mapToJSON = mapToJSON;

@@ -105,3 +105,12 @@ margin-bottom: 10px !important
     border-color: #152935 !important;
     margin-bottom: 10px !important
     };
+
+.btn-outline-secondary active{ 
+    color: #152935 !important;
+    background-color: transparent !important;
+    background-image: none;
+    border-color: #152935 !important;
+    margin-bottom: 10px !important;
+    
+    };

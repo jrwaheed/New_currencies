@@ -8,7 +8,7 @@
     
     <script src= "onloadScript.js"></script>
     <script type="module" src="script.js" defer></script>
-
+    <script type="module" src="scriptUpdates.js" defer></script>
 
     <script type="module" src="SQLGetArbitrage.js"></script>  
     <script type="module" src = "radarChart.js"></script>
@@ -38,32 +38,31 @@
 
        
         <div class="row; shadow p-3 mb-5 rounded" style="padding-top: 10px; padding-left: 10px;">
-            <div class="col-8">
+            <div class="col-10">
                 <button type = "button", id = "baseButton" class="btn btn-outline-primary" style ="outline-color: #698ea2 !important" onclick = "bigRun()"> 
                 Initiate / Add Currency Pairs </button>
             
                 <button type="button" class="btn btn-outline-primary" onclick = "buildChart()"> 
-                Build Arb Chart </button>
+                Build Arbitrage Chart </button>
             
-                <div class="dropdown btn-group">
-                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                 Time Interval
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1", onchange="universalTimer(this.value)">
-                  <li id = "UT15" value="15"><a class="dropdown-item" href="#">15 seconds</a></li >
-                  <li id = "UT30" value="30"><a class="dropdown-item" href="#">30 seconds</a></li >
-                  <li id = "UT60" value="60"><a class="dropdown-item" href="#">1 minute </a></li >
-                  <li id = "UT120" value="120"><a class="dropdown-item" href="#">2 minutes</a></li>
-                  <li id = "UT300" value="300"><a class="dropdown-item" href="#">5 minutes</a></li>
-               
-                  </ul>
-                </div>
-              
                 <button type="button" class="btn btn-outline-primary" onclick = "SQLFreshStart()"> 
                 Reset All </button>
 
-                <button type="button" class="btn btn-outline-primary" onclick = "loopUpdate()"> 
-                  Collection more Chartpoints </button>
+                <div class="dropdown btn-group">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" >
+                  Refresh Interval
+                  </button>
+                  <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li id = "UT15" onclick="setInterval(universalTimer, 5000)"><a class="dropdown-item">5 seconds</a></li >
+                  <li id = "UT30" onclick="setInterval(universalTimer, 10000)"><a class="dropdown-item">10 seconds</a></li >
+                  <li id = "UT60" onclick="setInterval(universalTimer, 30000)"><a class="dropdown-item">30 seconds</a></li >
+                  <li id = "UT120" onclick="setInterval(universalTimer, 60000)"><a class="dropdown-item">1 minute</a></li >
+                  <li id = "UT300" onclick="setInterval(universalTimer, 300000)"><a class="dropdown-item">5 minutes</a></li >
+                    <li id = "UT300" onclick="setInterval(universalTimer, 36000000)"><a class="dropdown-item">1 hour</a></li >
+                  </ul>
+                </div>
+
+                
 
             </div>
         </div>
@@ -124,8 +123,7 @@
                 <br>
                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                
               </div>
             </div>
 

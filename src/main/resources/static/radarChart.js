@@ -3,9 +3,8 @@ import {SQLCalcArbitrage} from '/src/main/resources/static/SQLGetArbitrage.js';
 
 
 function initiateChart(chartComboList, chartDeltaList){
-    const grapharea = document.getElementById('ArbChart').getContext('2d');
-
-    let CurrencyChart = new Chart(grapharea, {
+   
+    window.CurrencyChart = new Chart(document.getElementById('ArbChart').getContext('2d'), {
         type: 'radar',
         data: {
             labels: chartComboList,
@@ -15,12 +14,7 @@ function initiateChart(chartComboList, chartDeltaList){
                 data: chartDeltaList,
 
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    '#e4a576',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -44,6 +38,10 @@ function initiateChart(chartComboList, chartDeltaList){
     return CurrencyChart
 }
 //window.initiateChart = initiateChart;
+
+function destroyRadar(){
+    CurrencyChart.destroy();
+}
 
 
 function buildChart(){
@@ -73,4 +71,4 @@ function buildChart(){
     console.log("Do something")
 }
 window.buildChart = buildChart;
-
+window.destroyRadar = destroyRadar;
