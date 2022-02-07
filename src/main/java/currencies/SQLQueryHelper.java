@@ -264,12 +264,13 @@ private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
     //@CrossOrigin("http://127.0.0.1:5500/") //Campus
 
     @RequestMapping(value = "/index9", method = RequestMethod.GET)
-    public ArrayList<String> getMaxArbitrage() {
+    public String getMaxArbitrage() {
 
 
         String sql = "Call findMaxArbitrage();";
-        ArrayList<String> maxArbitrageList = new ArrayList<>();
+        ArrayList<Combination> maxArbitrageList = new ArrayList<>();
 
+        String JSON_MaxArbitrageList = null;
         try {
             Connection conn = DriverManager.getConnection(myURL, user, password);
             Statement stmt = conn.createStatement();
@@ -278,21 +279,26 @@ private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
             while (rs.next()) {
                 Combination combination = new Combination();
                 combination.setFullCombo(rs.getString("FullCombo"));
-               maxArbitrageList.add(combination.getFullCombo());
-                System.out.println(combination.getFullCombo());
-            }
+                combination.setDelta(rs.getBigDecimal("Delta"));
 
+
+                maxArbitrageList.add(combination);
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            JSON_MaxArbitrageList = objectMapper.writeValueAsString(maxArbitrageList);
+
+            System.out.println(JSON_MaxArbitrageList);
             rs.close();
             stmt.close();
             conn.close();
 
+            System.out.println("Successfully gathered Max deltas for Arbitrage." + new Date());
 
-            System.out.println("Successfully gathered Scatter Max deltas for Arbitrage." + new Date());
         } catch
-        (SQLException ex) {
-            System.out.println("Failure to gather Max detlas.");
+        (SQLException | JsonProcessingException ex) {
+            System.out.println("Failure to gather Max deltas.");
         }
-        return maxArbitrageList;
+        return JSON_MaxArbitrageList;
     }
 
     public void getSQLArbitrageValuesTester() {

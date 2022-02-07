@@ -162,15 +162,31 @@ function SQLFindArbitrage(){
 ////////////////////////////////////////////      UPDATE SECTION    ///////////////////////////////////////////////////////////
 
 function universalTimer(){
+    
+    anotherFuckingFunction()
     loopUpdate();
     prepForScatter(selectedNodeValue);
-    
     destroyRadar();
-    setTimeout(SQLFindArbitrage(), 250);
+    setTimeout(SQLFindArbitrage(), 500);
     setTimeout(buildChart(), 500);
-    getMaxDeltas();
- 
+  
+
 }
+
+async function anotherFuckingFunction() {
+    let maxResponse = await getMaxDeltas();
+
+    console.log("Please print something " + maxResponse);
+     //for(var i = 0; i <= fullScatterArray.length; i++){
+      
+      // document.getElementById("MaxDeltas").childNodes[i].values = maxResponse;
+        
+
+    //
+}
+
+ 
+
 
 
 function getUpdatedCurrencyList(){
@@ -225,7 +241,8 @@ function clickInitiateButtonEvent(){
 }
 
 
-function getMaxDeltas(){
+ async function getMaxDeltas(){
+    let maxResponse 
     $.ajax({
         headers: { 
             'Accept': 'application/json',
@@ -233,15 +250,21 @@ function getMaxDeltas(){
         },
         type: 'GET',
         url:'http://localhost:8080/index9',
-        
-        success: function(response){   
-            var  result = response;   
-            console.log("Successfully gathered max deltas")
-        }
+       
+        async:false,
+        dataType: 'text',
+    
+
+        success: function(response){  
+            maxResponse = response         
+        },
+    
     });   
-        error : console.log("Max delta capture failed")
-    return result 
+   
+    return maxResponse;
 }
+
+
 
 window.loopUpdate = loopUpdate;
 window.universalTimer = universalTimer;
