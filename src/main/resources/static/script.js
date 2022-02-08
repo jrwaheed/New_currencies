@@ -174,18 +174,49 @@ function universalTimer(){
 }
 
 async function anotherFuckingFunction() {
-    let maxResponse = await getMaxDeltas();
+    var JSONmaxResponse = await getMaxDeltas();
 
-    console.log("Please print something " + maxResponse);
-     //for(var i = 0; i <= fullScatterArray.length; i++){
-      
-      // document.getElementById("MaxDeltas").childNodes[i].values = maxResponse;
+    console.log("Please print something " + JSONmaxResponse);
+     //var obj = JSON.parse(JSONmaxResponse)
+
+    let MaxArrayFullCombo = JSONmaxResponse.map(element => element.fullCombo);
+    let MaxArrayDelta = JSONmaxResponse.map(element => element.delta);
+
+    console.log("Max FullCombo " + MaxArrayFullCombo[0])
+    console.log("Max delta " + MaxArrayDelta[0])
+
+    console.log(JSONmaxResponse[0])
+    console.log(JSONmaxResponse[0].delta)
+   
+
+
+    var ul = document.getElementById("MaxDeltas");
+    ul.className = "font-weight-light";
+
+    if(ul.childElementCount > 0){
+        ul.innerHTML ='';
+
+        for(var i = 0; i <= JSONmaxResponse.length; i++) {
+            var li = document.createElement("li");
+            li.innerHTML = JSONmaxResponse[i].fullCombo + " : " + JSONmaxResponse[i].delta;
+            ul.appendChild(li)
+            document.getElementById("MaxDeltas").childNodes[i].className = "max-arb-elements";
+        }
+    } else{
+
+        for(var i = 0; i <= JSONmaxResponse.length; i++) {
+            var li = document.createElement("li");
+            li.innerHTML = JSONmaxResponse[i].fullCombo + " : " + JSONmaxResponse[i].delta;
+            ul.appendChild(li)
+            document.getElementById("MaxDeltas").childNodes[i].className = "font-weight-light";
+
+
+        }
+    }
         
 
-    //
-}
-
  
+}
 
 
 
@@ -250,11 +281,11 @@ function clickInitiateButtonEvent(){
         },
         type: 'GET',
         url:'http://localhost:8080/index9',
-       
-        async:false,
-        dataType: 'text',
-    
 
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async:false,
+        
         success: function(response){  
             maxResponse = response         
         },

@@ -10,7 +10,7 @@ function initiateChart(chartComboList, chartDeltaList){
             labels: chartComboList,
 
             datasets: [{
-                label: 'Arbitrage value by Triangle',
+                label: 'Delta value by Triangle',
                 data: chartDeltaList,
 
                 backgroundColor: [
