@@ -122,9 +122,8 @@ margin-bottom: 10px !important
    
 };
 
-.card border-dark{
-    
-    background-color: #152935!important;
+.card-body{
+   background-color: #152935!important;
     border-color: #152935 !important
    
 }

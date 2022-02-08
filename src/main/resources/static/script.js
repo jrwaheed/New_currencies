@@ -163,7 +163,7 @@ function SQLFindArbitrage(){
 
 function universalTimer(){
     
-    anotherFuckingFunction()
+    setTimeout(anotherFuckingFunction(), 250)
     loopUpdate();
     prepForScatter(selectedNodeValue);
     destroyRadar();
@@ -191,26 +191,32 @@ async function anotherFuckingFunction() {
 
 
     var ul = document.getElementById("MaxDeltas");
-    ul.className = "font-weight-light";
+    //ul.className = "font-weight-light";
 
     if(ul.childElementCount > 0){
         ul.innerHTML ='';
 
         for(var i = 0; i <= JSONmaxResponse.length; i++) {
             var li = document.createElement("li");
-            li.innerHTML = JSONmaxResponse[i].fullCombo + " : " + JSONmaxResponse[i].delta;
+            var lspan = document.createElement("span");
+            li.innerHTML = JSONmaxResponse[i].fullCombo
+            lspan.innerHTML = JSONmaxResponse[i].delta
             ul.appendChild(li)
-            document.getElementById("MaxDeltas").childNodes[i].className = "max-arb-elements";
+            li.appendChild(lspan)
+            document.getElementById("MaxDeltas").childNodes[i].className = "list-group-item d-flex justify-content-between align-items-center";
+            //document.getElementById("MaxDeltas").childNodes[i].childNodes[i].className = "badge badge-primary badge-pill"
         }
     } else{
 
         for(var i = 0; i <= JSONmaxResponse.length; i++) {
             var li = document.createElement("li");
-            li.innerHTML = JSONmaxResponse[i].fullCombo + " : " + JSONmaxResponse[i].delta;
+            var lspan = document.createElement("span");
+            li.innerHTML = JSONmaxResponse[i].fullCombo
+            lspan.innerHTML = JSONmaxResponse[i].delta
             ul.appendChild(li)
-            document.getElementById("MaxDeltas").childNodes[i].className = "font-weight-light";
-
-
+            li.appendChild(lspan)
+            document.getElementById("MaxDeltas").childNodes[i].className = "list-group-item d-flex justify-content-between align-items-center";
+            //document.getElementById("MaxDeltas").childNodes[i].childNodes[i].className = "badge badge-primary badge-pill"
         }
     }
         
@@ -314,3 +320,14 @@ window.grabBaseCurrency = grabBaseCurrency;
 window.fullAPIFetch = fullAPIFetch;
 window.makeRollingMap = makeRollingMap;
 window.mapToJSON = mapToJSON;
+
+
+
+
+/*
+for(var i = 0; i <= JSONmaxResponse.length; i++) {
+    var li = document.createElement("li");
+    li.innerHTML = JSONmaxResponse[i].fullCombo + " : " + JSONmaxResponse[i].delta;
+    ul.appendChild(li)
+    document.getElementById("MaxDeltas").childNodes[i].className = "list-group-item d-flex justify-content-between align-items-center";
+*/

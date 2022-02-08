@@ -31,8 +31,8 @@ function initiateChart(scatterLabelsList, scatterComboList, objectList){
         datasets: [{
             label: scatterComboList[0], 
             data: objectList,
-            pointRadius : 3,
-            pointHoverRadius : 5,
+            pointRadius : 5,
+            pointHoverRadius : 7,
             backgroundColor: ['#e4a576'],
             borderColor: ['rgba(255, 99, 132, 1)'],
             borderWidth: 1
@@ -58,6 +58,7 @@ function initiateChart(scatterLabelsList, scatterComboList, objectList){
         plugins: {
             tooltip:{
                 model: 'label',
+                yAlign:'bottom',
                 callbacks:{
                     label: function(tooltipItem, data){
                     
