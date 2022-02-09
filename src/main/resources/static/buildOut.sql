@@ -1,7 +1,6 @@
-DELIMITER //
-
-CREATE PROCEDURE buildOut()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Exchange`.`buildOut`()
 BEGIN
+	
 	
 set @counter =1;
 
@@ -51,6 +50,4 @@ IF @entryCounter < @counter THEN
 	
 END LOOP;
 
-END //
-
-DELIMITER ;
+END

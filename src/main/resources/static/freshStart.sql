@@ -23,6 +23,10 @@ IF @entryCounter < @counter THEN
 END LOOP;
 
 DROP TABLE Triangle;
+DROP TABLE IF EXISTS firstList;
+DROP TABLE IF EXISTS secondList;
+DROP TABLE IF EXISTS thirdList;
+
 TRUNCATE TABLE currency; 
 
 

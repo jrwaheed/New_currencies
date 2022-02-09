@@ -1,6 +1,8 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Exchange`.`findArbitrage`()
 BEGIN
 	
+DROP TABLE IF EXISTS Triangle;
+	
 CREATE TABLE Triangle (
 	LegOne varchar(10),
 	LegTwo varchar(10),
@@ -108,6 +110,7 @@ LEAVE loop_one;
 			(@comboOne, @comboTwo, @comboThree, @leg_one_value, @leg_two_value, @leg_three_value, @LegTotal, @Delta, @FullCombo ); 
 			
 			
+			
 		
 		
 		END LOOP;
@@ -130,6 +133,6 @@ END LOOP;
 -- MODIFY COLUMN ArbitrageOpportunity DECIMAL(2,1);
 
 
-	
+DELETE FROM Triangle WHERE legTotal is null;
 DROP TABLE firstList, secondList, thirdList; 			
 END
