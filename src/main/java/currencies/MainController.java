@@ -33,9 +33,9 @@ public class MainController {
     private static final String user = "root";
     private static final String password = "TheHulk1*";
 */
-    private static final String myURL = "jdbc:mysql://localhost:3306/Exchange";
-    private static final String user = "root";
-    private static final String password = "TheHulk1*";
+    private static final String myURL = "jdbc:mysql://192.168.56.103:3306/Exchange";
+    private static final String user = "jamal";
+    private static final String password = "Ubuntu";
 
     private final Logger log = LoggerFactory.getLogger(MainController.class);
 

@@ -127,3 +127,11 @@ margin-bottom: 10px !important
     border-color: #152935 !important
    
 }
+
+.footer-helper {
+    clear: both;
+    position: relative;
+    height: 40px;
+    margin-top: -200px;
+           
+  }
